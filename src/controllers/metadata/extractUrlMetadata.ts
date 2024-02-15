@@ -15,6 +15,7 @@ export const extractUrlMetadata = async (req: Request, res: Response) => {
 
     const $ = cheerio.load(html);
     const metadata = {
+      url: $('meta[property="og:url"]').attr("content"),
       title:
         $('meta[property="og:title"]').attr("content") || $("title").text(),
       description:
