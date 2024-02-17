@@ -63,8 +63,7 @@ export const googleCallback = async (
       `${REDIRECT_URI}google`
     );
     const { tokens } = await oauth2Client.getToken(code);
-    if (!tokens.access_token)
-      throw new Error("Failed to retrieve google access token");
+    if (!tokens) throw new Error("Failed to retrieve google token");
 
     oauth2Client.setCredentials(tokens);
     const { data } = await google
