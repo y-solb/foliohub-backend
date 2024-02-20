@@ -12,17 +12,17 @@ export class UserProfile {
   id!: string;
 
   @Column({ length: 255 })
-  display_name!: string;
+  displayName!: string;
 
   @Column({ length: 255 })
-  short_bio!: string;
+  shortBio!: string;
 
   @Column({ length: 255 })
   thumbnail!: string;
 
   @CreateDateColumn()
-  created_at!: Date;
+  createdAt!: Date;
 
   @UpdateDateColumn()
-  updated_at!: Date;
+  updatedAt!: Date;
 }

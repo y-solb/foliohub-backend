@@ -22,7 +22,7 @@ export default async (req: Request, res: Response, next: NextFunction) => {
 
       const accessToken = generateToken(
         {
-          userId: authToken.fk_user_id,
+          userId: authToken.fkUserId,
         },
         {
           subject: "access_token",
@@ -33,7 +33,7 @@ export default async (req: Request, res: Response, next: NextFunction) => {
       const userRepository = AppDataSource.getRepository(User);
       const user = await userRepository.findOne({
         where: {
-          id: authToken.fk_user_id,
+          id: authToken.fkUserId,
         },
       });
       if (!user) throw new Error("Unauthenticated");

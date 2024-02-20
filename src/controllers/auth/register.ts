@@ -29,7 +29,7 @@ export const register = async (req: Request, res: Response) => {
 
     user.email = email;
     user.username = username;
-    user.google_id = id;
+    user.googleId = id;
 
     await userRepository.save(user);
     res.clearCookie("registerToken");

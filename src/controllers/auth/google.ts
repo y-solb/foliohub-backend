@@ -74,7 +74,7 @@ export const googleCallback = async (req: Request, res: Response) => {
     const userRepository = AppDataSource.getRepository(User);
     const user = await userRepository.findOne({
       where: {
-        google_id: data.id,
+        googleId: data.id,
       },
     });
 

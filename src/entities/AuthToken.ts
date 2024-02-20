@@ -16,22 +16,22 @@ export default class AuthToken {
   id!: string;
 
   @Column("uuid")
-  fk_user_id!: string;
+  fkUserId!: string;
 
   @Index()
   @Column({ unique: true })
   token!: string;
 
   @Column("timestamp")
-  expires_at!: Date;
+  expiresAt!: Date;
 
   @CreateDateColumn()
-  created_at!: Date;
+  createdAt!: Date;
 
   @UpdateDateColumn()
-  updated_at!: Date;
+  updatedAt!: Date;
 
   @ManyToOne(() => User, (user) => user.id, { onDelete: "CASCADE" })
-  @JoinColumn({ name: "fk_user_id" })
+  @JoinColumn({ name: "fkUserId" })
   user!: User;
 }

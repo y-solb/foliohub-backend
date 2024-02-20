@@ -28,31 +28,31 @@ export class User {
 
   @Index()
   @Column({ unique: true, length: 255 })
-  google_id!: string;
+  googleId!: string;
 
   @OneToOne(() => UserProfile, { cascade: true })
   @JoinColumn()
   profile!: UserProfile;
 
   @CreateDateColumn()
-  created_at!: Date;
+  createdAt!: Date;
 
   @UpdateDateColumn()
-  updated_at!: Date;
+  updatedAt!: Date;
 
   async generateUserToken() {
     const refreshToken = generateToken(
       {},
       {
-        subject: "refresh_token",
+        subject: "refreshToken",
         expiresIn: "14d",
       }
     );
 
     const authToken = new AuthToken();
-    authToken.fk_user_id = this.id;
+    authToken.fkUserId = this.id;
     authToken.token = refreshToken;
-    authToken.expires_at = new Date(Date.now() + 14 * 24 * 60 * 60 * 1000);
+    authToken.expiresAt = new Date(Date.now() + 14 * 24 * 60 * 60 * 1000);
     await AppDataSource.getRepository(AuthToken).save(authToken);
 
     return {
