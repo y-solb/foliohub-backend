@@ -5,6 +5,7 @@ import cors from "cors";
 import { AppDataSource } from "./data-source";
 import bodyParser from "body-parser";
 import cookieParser from "cookie-parser";
+import errorHandler from "./middlewares/errorHandler";
 
 dotenv.config();
 
@@ -21,6 +22,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(cookieParser());
 app.use("/", routes);
+app.use(errorHandler);
 
 const port = process.env.PORT || 3000;
 

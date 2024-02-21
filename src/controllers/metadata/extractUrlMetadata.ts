@@ -1,13 +1,19 @@
 import axios from "axios";
 import * as cheerio from "cheerio";
-import { Request, Response } from "express";
+import { Request, Response, NextFunction } from "express";
+import { CustomError } from "../../libs/customError";
 
-export const extractUrlMetadata = async (req: Request, res: Response) => {
+export const extractUrlMetadata = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   const { url } = req.query;
 
-  if (typeof url !== "string") {
-    return;
-  }
+  if (typeof url !== "string")
+    return next(
+      new CustomError(400, "General", "url이 string 타입이 아닙니다.")
+    );
 
   try {
     const response = await axios.get(url);
@@ -26,7 +32,6 @@ export const extractUrlMetadata = async (req: Request, res: Response) => {
 
     res.json(metadata);
   } catch (error) {
-    console.error("Error fetching metadata:", error);
-    res.status(500).json({ error: "Error fetching metadata" });
+    return next(new CustomError(400, "Raw", "Error", null, error));
   }
 };

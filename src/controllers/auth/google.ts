@@ -1,8 +1,9 @@
 import { google } from "googleapis";
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import { User } from "../../entities/User";
 import { AppDataSource } from "../../data-source";
 import { generateToken, setTokenCookie } from "../../libs/token";
+import { CustomError } from "../../libs/customError";
 
 const REDIRECT_PATH = "/v1/auth/callback/";
 const REDIRECT_URI =
@@ -32,12 +33,21 @@ const generators = {
  * social login
  * GET /v1/auth/redirect/:provider (google)
  */
-export const socialRedirect = async (req: Request, res: Response) => {
+export const socialRedirect = (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   const { provider } = req.params;
 
   if (provider !== "google") {
-    res.status(400).send();
-    return;
+    return next(
+      new CustomError(
+        400,
+        "General",
+        `${provider} provider는 존재하지 않습니다.`
+      )
+    );
   }
 
   const loginUrl = generators[provider]();
@@ -48,7 +58,11 @@ export const socialRedirect = async (req: Request, res: Response) => {
  * 구글 redirect uri
  * /v1/auth/callback/google
  */
-export const googleCallback = async (req: Request, res: Response) => {
+export const googleCallback = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   const { code }: { code?: string } = req.query;
   if (!code) {
     res.status(400).send();
@@ -62,7 +76,10 @@ export const googleCallback = async (req: Request, res: Response) => {
       `${REDIRECT_URI}google`
     );
     const { tokens } = await oauth2Client.getToken(code);
-    if (!tokens) throw new Error("Failed to retrieve google token");
+    if (!tokens)
+      return next(
+        new CustomError(400, "General", "google token이 존재하지 않습니다.")
+      );
 
     oauth2Client.setCredentials(tokens);
     const { data } = await google
@@ -99,8 +116,7 @@ export const googleCallback = async (req: Request, res: Response) => {
     });
 
     res.redirect("http://localhost:3000/auth/register");
-  } catch (err) {
-    console.error(err);
-    return res.status(500).json({ err: "문제가 발생했습니다." });
+  } catch (error) {
+    return next(new CustomError(400, "Raw", "Error", null, error));
   }
 };

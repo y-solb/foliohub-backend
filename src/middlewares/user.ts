@@ -3,6 +3,7 @@ import { User } from "../entities/User";
 import { decodeToken, generateToken } from "../libs/token";
 import { AppDataSource } from "../data-source";
 import AuthToken from "../entities/AuthToken";
+import { CustomError } from "../libs/customError";
 
 export default async (req: Request, res: Response, next: NextFunction) => {
   try {
@@ -18,7 +19,14 @@ export default async (req: Request, res: Response, next: NextFunction) => {
           token: refreshToken,
         },
       });
-      if (!authToken) throw new Error("Unauthenticated");
+      if (!authToken)
+        return next(
+          new CustomError(
+            401,
+            "Unauthorized",
+            "해당 token이 존재하지 않습니다."
+          )
+        );
 
       const accessToken = generateToken(
         {
@@ -36,7 +44,10 @@ export default async (req: Request, res: Response, next: NextFunction) => {
           id: authToken.fkUserId,
         },
       });
-      if (!user) throw new Error("Unauthenticated");
+      if (!user)
+        return next(
+          new CustomError(401, "Unauthorized", "해당 user가 존재하지 않습니다.")
+        );
 
       req.user = { ...user, accessToken };
 
@@ -51,12 +62,14 @@ export default async (req: Request, res: Response, next: NextFunction) => {
         id: userId,
       },
     });
-    if (!user) throw new Error("Unauthenticated");
+    if (!user)
+      return next(
+        new CustomError(401, "Unauthorized", "해당 user가 존재하지 않습니다.")
+      );
 
     req.user = user;
     return next();
   } catch (error) {
-    console.error(error);
-    return res.status(400).json({ error: "Something went wrong" });
+    return next(new CustomError(400, "Raw", "Error", null, error));
   }
 };
