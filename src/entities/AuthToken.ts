@@ -7,22 +7,22 @@ import {
   CreateDateColumn,
   JoinColumn,
   ManyToOne,
-} from "typeorm";
-import { User } from "./User";
+} from 'typeorm';
+import { User } from './User';
 
-@Entity("auth_tokens")
+@Entity('auth_tokens')
 export default class AuthToken {
-  @PrimaryGeneratedColumn("uuid")
+  @PrimaryGeneratedColumn('uuid')
   id!: string;
 
-  @Column("uuid")
+  @Column('uuid')
   fkUserId!: string;
 
   @Index()
   @Column({ unique: true })
   token!: string;
 
-  @Column("timestamp")
+  @Column('timestamp')
   expiresAt!: Date;
 
   @CreateDateColumn()
@@ -31,7 +31,7 @@ export default class AuthToken {
   @UpdateDateColumn()
   updatedAt!: Date;
 
-  @ManyToOne(() => User, (user) => user.id, { onDelete: "CASCADE" })
-  @JoinColumn({ name: "fkUserId" })
+  @ManyToOne(() => User, (user) => user.id, { onDelete: 'CASCADE' })
+  @JoinColumn({ name: 'fkUserId' })
   user!: User;
 }

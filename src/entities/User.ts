@@ -7,15 +7,15 @@ import {
   UpdateDateColumn,
   OneToOne,
   JoinColumn,
-} from "typeorm";
-import { UserProfile } from "./UserProfile";
-import AuthToken from "./AuthToken";
-import { AppDataSource } from "../data-source";
-import { generateToken } from "../libs/token";
+} from 'typeorm';
+import { UserProfile } from './UserProfile';
+import AuthToken from './AuthToken';
+import { AppDataSource } from '../data-source';
+import { generateToken } from '../libs/token';
 
-@Entity("users")
+@Entity('users')
 export class User {
-  @PrimaryGeneratedColumn("uuid")
+  @PrimaryGeneratedColumn('uuid')
   id!: string;
 
   @Index()
@@ -44,8 +44,8 @@ export class User {
     const refreshToken = generateToken(
       {},
       {
-        subject: "refreshToken",
-        expiresIn: "14d",
+        subject: 'refreshToken',
+        expiresIn: '14d',
       }
     );
 

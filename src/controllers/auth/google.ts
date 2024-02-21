@@ -1,13 +1,13 @@
-import { google } from "googleapis";
-import { NextFunction, Request, Response } from "express";
-import { User } from "../../entities/User";
-import { AppDataSource } from "../../data-source";
-import { generateToken, setTokenCookie } from "../../libs/token";
-import { CustomError } from "../../libs/customError";
+import { google } from 'googleapis';
+import { NextFunction, Request, Response } from 'express';
+import { User } from '../../entities/User';
+import { AppDataSource } from '../../data-source';
+import { generateToken, setTokenCookie } from '../../libs/token';
+import { CustomError } from '../../libs/customError';
 
-const REDIRECT_PATH = "/v1/auth/callback/";
+const REDIRECT_PATH = '/v1/auth/callback/';
 const REDIRECT_URI =
-  process.env.NODE_ENV === "development"
+  process.env.NODE_ENV === 'development'
     ? `http://localhost:3001${REDIRECT_PATH}`
     : `http://localhost:3001${REDIRECT_PATH}`;
 
@@ -20,8 +20,8 @@ const generators = {
     );
     const url = oauth2Client.generateAuthUrl({
       scope: [
-        "https://www.googleapis.com/auth/userinfo.email",
-        "https://www.googleapis.com/auth/userinfo.profile",
+        'https://www.googleapis.com/auth/userinfo.email',
+        'https://www.googleapis.com/auth/userinfo.profile',
       ],
     });
 
@@ -33,21 +33,11 @@ const generators = {
  * social login
  * GET /v1/auth/redirect/:provider (google)
  */
-export const socialRedirect = (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
+export const socialRedirect = (req: Request, res: Response, next: NextFunction) => {
   const { provider } = req.params;
 
-  if (provider !== "google") {
-    return next(
-      new CustomError(
-        400,
-        "General",
-        `${provider} provider는 존재하지 않습니다.`
-      )
-    );
+  if (provider !== 'google') {
+    return next(new CustomError(400, 'General', `${provider} provider는 존재하지 않습니다.`));
   }
 
   const loginUrl = generators[provider]();
@@ -58,11 +48,7 @@ export const socialRedirect = (
  * 구글 redirect uri
  * /v1/auth/callback/google
  */
-export const googleCallback = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
+export const googleCallback = async (req: Request, res: Response, next: NextFunction) => {
   const { code }: { code?: string } = req.query;
   if (!code) {
     res.status(400).send();
@@ -76,15 +62,10 @@ export const googleCallback = async (
       `${REDIRECT_URI}google`
     );
     const { tokens } = await oauth2Client.getToken(code);
-    if (!tokens)
-      return next(
-        new CustomError(400, "General", "google token이 존재하지 않습니다.")
-      );
+    if (!tokens) return next(new CustomError(400, 'General', 'google token이 존재하지 않습니다.'));
 
     oauth2Client.setCredentials(tokens);
-    const { data } = await google
-      .oauth2("v2")
-      .userinfo.get({ auth: oauth2Client });
+    const { data } = await google.oauth2('v2').userinfo.get({ auth: oauth2Client });
 
     if (!data.id) return;
 
@@ -105,18 +86,15 @@ export const googleCallback = async (
     }
 
     // register
-    const registerToken = generateToken(
-      { email: data.email, id: data.id },
-      { expiresIn: "1h" }
-    );
+    const registerToken = generateToken({ email: data.email, id: data.id }, { expiresIn: '1h' });
 
-    res.cookie("registerToken", registerToken, {
+    res.cookie('registerToken', registerToken, {
       maxAge: 1000 * 60 * 60,
       httpOnly: true,
     });
 
-    res.redirect("http://localhost:3000/auth/register");
+    res.redirect('http://localhost:3000/auth/register');
   } catch (error) {
-    return next(new CustomError(400, "Raw", "Error", null, error));
+    return next(new CustomError(400, 'Raw', 'Error', null, error));
   }
 };

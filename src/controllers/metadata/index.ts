@@ -1,1 +1,1 @@
-export * from "./extractUrlMetadata";
+export * from './extractUrlMetadata';
