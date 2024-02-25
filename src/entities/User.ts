@@ -33,9 +33,9 @@ export class User {
   @Column({ unique: true, length: 255 })
   providerId!: string;
 
-  @OneToOne(() => Portfolio, { cascade: true })
+  @OneToOne(() => Portfolio, (portfolio) => portfolio.user, { cascade: true })
   @JoinColumn()
-  profile!: Portfolio;
+  portfolio!: Portfolio;
 
   @CreateDateColumn()
   createdAt!: Date;

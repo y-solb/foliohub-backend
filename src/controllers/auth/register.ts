@@ -10,29 +10,30 @@ import { CustomError } from '../../libs/customError';
  */
 export const register = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const { username } = req.body;
+    const { userId } = req.body;
 
-    if (!username)
-      return next(new CustomError(400, 'Validation', 'username값이 존재하지 않습니다.'));
+    if (!userId) return next(new CustomError(400, 'Validation', 'userId값이 존재하지 않습니다.'));
 
     const userRepository = AppDataSource.getRepository(User);
     const existingUsername = await userRepository.findOne({
       where: {
-        username,
+        userId,
       },
     });
     if (existingUsername)
-      return next(new CustomError(400, 'General', '해당 username을 사용하는 사용자가 존재합니다.'));
+      return next(new CustomError(400, 'General', '해당 userId을 사용하는 사용자가 존재합니다.'));
 
-    const { email, id } = decodeToken(req.cookies.registerToken) as {
+    const { email, provider, providerId } = decodeToken(req.cookies.registerToken) as {
       email: string;
-      id: string;
+      provider: 'google';
+      providerId: string;
     };
     const user = new User();
 
     user.email = email;
-    user.username = username;
-    user.googleId = id;
+    user.userId = userId;
+    user.provider = provider;
+    user.providerId = providerId;
 
     await userRepository.save(user);
     res.clearCookie('registerToken');

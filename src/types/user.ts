@@ -1,6 +1,6 @@
 export type User = {
   id: string;
   email: string;
-  username: string;
+  userId: string;
   accessToken?: string;
 };

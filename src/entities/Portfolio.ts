@@ -4,7 +4,11 @@ import {
   CreateDateColumn,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
+  OneToOne,
+  OneToMany,
 } from 'typeorm';
+import { User } from './User';
+import { Asset } from './Asset';
 
 @Entity()
 export class Portfolio {
@@ -17,8 +21,14 @@ export class Portfolio {
   @Column({ length: 255 })
   shortBio!: string;
 
-  @Column({ length: 255 })
+  @Column()
   thumbnail!: string;
+
+  @OneToOne(() => User, (user) => user.portfolio)
+  user!: User;
+
+  @OneToMany(() => Asset, (asset) => asset.portfolio)
+  assets!: Asset[];
 
   @CreateDateColumn()
   createdAt!: Date;

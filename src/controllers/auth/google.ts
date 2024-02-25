@@ -86,7 +86,10 @@ export const googleCallback = async (req: Request, res: Response, next: NextFunc
     }
 
     // register
-    const registerToken = generateToken({ email: data.email, id: data.id }, { expiresIn: '1h' });
+    const registerToken = generateToken(
+      { email: data.email, provider: 'google', providerId: data.id },
+      { expiresIn: '1h' }
+    );
 
     res.cookie('registerToken', registerToken, {
       maxAge: 1000 * 60 * 60,
