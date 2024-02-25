@@ -6,7 +6,6 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
   OneToOne,
-  JoinColumn,
 } from 'typeorm';
 import { Portfolio } from './Portfolio';
 import AuthToken from './AuthToken';
@@ -34,7 +33,6 @@ export class User {
   providerId!: string;
 
   @OneToOne(() => Portfolio, (portfolio) => portfolio.user, { cascade: true })
-  @JoinColumn()
   portfolio!: Portfolio;
 
   @CreateDateColumn()

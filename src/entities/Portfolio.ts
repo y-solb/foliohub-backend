@@ -6,6 +6,7 @@ import {
   UpdateDateColumn,
   OneToOne,
   OneToMany,
+  JoinColumn,
 } from 'typeorm';
 import { User } from './User';
 import { Asset } from './Asset';
@@ -15,16 +16,20 @@ export class Portfolio {
   @PrimaryGeneratedColumn('uuid')
   id!: string;
 
-  @Column({ length: 255 })
+  @Column({ length: 255, nullable: true })
   displayName!: string;
 
-  @Column({ length: 255 })
+  @Column({ length: 255, nullable: true })
   shortBio!: string;
 
-  @Column()
+  @Column({ nullable: true })
   thumbnail!: string;
 
-  @OneToOne(() => User, (user) => user.portfolio)
+  @Column('uuid')
+  fkUserId!: string;
+
+  @OneToOne(() => User, (user) => user.id)
+  @JoinColumn({ name: 'fkUserId' })
   user!: User;
 
   @OneToMany(() => Asset, (asset) => asset.portfolio)

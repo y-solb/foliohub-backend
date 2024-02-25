@@ -15,9 +15,6 @@ export default class AuthToken {
   @PrimaryGeneratedColumn('uuid')
   id!: string;
 
-  @Column('uuid')
-  fkUserId!: string;
-
   @Index()
   @Column({ unique: true })
   token!: string;
@@ -31,7 +28,10 @@ export default class AuthToken {
   @UpdateDateColumn()
   updatedAt!: Date;
 
+  @Column('uuid')
+  fkUserId!: string;
+
   @ManyToOne(() => User, (user) => user.id, { onDelete: 'CASCADE' })
-  @JoinColumn()
+  @JoinColumn({ name: 'fkUserId' })
   user!: User;
 }
