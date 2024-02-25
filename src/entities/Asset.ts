@@ -57,11 +57,12 @@ export class Asset {
   @Column()
   mdHeight!: number;
 
-  @ManyToOne(() => User)
+  @ManyToOne(() => User, { onDelete: 'CASCADE' })
   @JoinColumn()
   user!: User;
 
-  @ManyToOne(() => Portfolio, (portfolio) => portfolio.assets)
+  @ManyToOne(() => Portfolio, (portfolio) => portfolio.assets, { onDelete: 'CASCADE' })
+  @JoinColumn()
   portfolio!: Portfolio;
 
   @CreateDateColumn()

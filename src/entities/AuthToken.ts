@@ -32,6 +32,6 @@ export default class AuthToken {
   updatedAt!: Date;
 
   @ManyToOne(() => User, (user) => user.id, { onDelete: 'CASCADE' })
-  @JoinColumn({ name: 'fkUserId' })
+  @JoinColumn()
   user!: User;
 }
