@@ -8,12 +8,12 @@ import {
   OneToOne,
   JoinColumn,
 } from 'typeorm';
-import { UserProfile } from './UserProfile';
+import { Portfolio } from './Portfolio';
 import AuthToken from './AuthToken';
 import { AppDataSource } from '../data-source';
 import { generateToken } from '../libs/token';
 
-@Entity('users')
+@Entity()
 export class User {
   @PrimaryGeneratedColumn('uuid')
   id!: string;
@@ -24,15 +24,18 @@ export class User {
 
   @Index()
   @Column({ unique: true, length: 255 })
-  username!: string;
+  userId!: string;
+
+  @Column()
+  provider!: 'google';
 
   @Index()
   @Column({ unique: true, length: 255 })
-  googleId!: string;
+  providerId!: string;
 
-  @OneToOne(() => UserProfile, { cascade: true })
+  @OneToOne(() => Portfolio, { cascade: true })
   @JoinColumn()
-  profile!: UserProfile;
+  profile!: Portfolio;
 
   @CreateDateColumn()
   createdAt!: Date;

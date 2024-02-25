@@ -6,8 +6,8 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 
-@Entity('user_profiles')
-export class UserProfile {
+@Entity()
+export class Portfolio {
   @PrimaryGeneratedColumn('uuid')
   id!: string;
 

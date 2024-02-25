@@ -10,7 +10,7 @@ import {
 } from 'typeorm';
 import { User } from './User';
 
-@Entity('auth_tokens')
+@Entity()
 export default class AuthToken {
   @PrimaryGeneratedColumn('uuid')
   id!: string;
