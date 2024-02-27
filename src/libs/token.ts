@@ -25,7 +25,10 @@ export function setTokenCookie(res: Response, refreshToken: string) {
   // });
 
   res.cookie('refreshToken', refreshToken, {
+    path: '/',
     maxAge: 1000 * 60 * 60 * 24 * 14,
     httpOnly: true,
+    sameSite: 'strict',
+    secure: true,
   });
 }
