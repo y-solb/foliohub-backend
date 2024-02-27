@@ -37,7 +37,7 @@ export const socialRedirect = (req: Request, res: Response, next: NextFunction) 
   const { provider } = req.params;
 
   if (provider !== 'google') {
-    return next(new CustomError(400, 'General', `${provider} provider는 존재하지 않습니다.`));
+    return next(new CustomError(400, 'General', `해당 ${provider} provider는 존재하지 않습니다.`));
   }
 
   const loginUrl = generators[provider]();
@@ -62,7 +62,9 @@ export const googleCallback = async (req: Request, res: Response, next: NextFunc
       `${REDIRECT_URI}google`
     );
     const { tokens } = await oauth2Client.getToken(code);
-    if (!tokens) return next(new CustomError(400, 'General', 'google token이 존재하지 않습니다.'));
+    if (!tokens) {
+      return next(new CustomError(400, 'General', '해당 google token이 존재하지 않습니다.'));
+    }
 
     oauth2Client.setCredentials(tokens);
     const { data } = await google.oauth2('v2').userinfo.get({ auth: oauth2Client });
