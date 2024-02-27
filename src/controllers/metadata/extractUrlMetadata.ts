@@ -4,13 +4,13 @@ import { Request, Response, NextFunction } from 'express';
 import { CustomError } from '../../libs/customError';
 
 export const extractUrlMetadata = async (req: Request, res: Response, next: NextFunction) => {
-  const { url } = req.query;
+  const { link } = req.query;
 
-  if (typeof url !== 'string')
-    return next(new CustomError(400, 'General', 'url이 string 타입이 아닙니다.'));
+  if (typeof link !== 'string')
+    return next(new CustomError(400, 'General', 'link이 string 타입이 아닙니다.'));
 
   try {
-    const response = await axios.get(url);
+    const response = await axios.get(link);
     const html = response.data;
 
     const $ = cheerio.load(html);
