@@ -25,6 +25,9 @@ export class Portfolio {
   @Column({ nullable: true })
   thumbnail!: string;
 
+  @Column('json', { nullable: true })
+  layout!: string;
+
   @Column('uuid')
   fkUserId!: string;
 

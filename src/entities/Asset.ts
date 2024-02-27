@@ -18,51 +18,33 @@ export class Asset {
   @Column({ length: 255 })
   type!: 'github' | 'link' | 'image' | 'content';
 
-  @Column({ length: 255 })
-  shortBio!: string;
-
-  @Column({ length: 255 })
+  @Column({ length: 255, nullable: true })
   githubId!: string;
 
-  @Column({ length: 255 })
+  @Column({ length: 255, nullable: true })
   imageUrl!: string;
 
-  @Column({ length: 255 })
+  @Column({ length: 255, nullable: true })
   link!: string;
 
-  @Column('text')
+  @Column('text', { nullable: true })
   content!: string;
 
-  @Column()
-  lgX!: number;
+  @Column('uuid')
+  layoutId!: string;
 
-  @Column()
-  lgY!: number;
+  @Column('uuid')
+  fkUserId!: string;
 
-  @Column()
-  lgWidth!: number;
-
-  @Column()
-  lgHeight!: number;
-
-  @Column()
-  mdX!: number;
-
-  @Column()
-  mdY!: number;
-
-  @Column()
-  mdWidth!: number;
-
-  @Column()
-  mdHeight!: number;
+  @Column('uuid')
+  fkPortfolioId!: string;
 
   @ManyToOne(() => User, { onDelete: 'CASCADE' })
-  @JoinColumn()
+  @JoinColumn({ name: 'fkUserId' })
   user!: User;
 
   @ManyToOne(() => Portfolio, (portfolio) => portfolio.assets, { onDelete: 'CASCADE' })
-  @JoinColumn()
+  @JoinColumn({ name: 'fkPortfolioId' })
   portfolio!: Portfolio;
 
   @CreateDateColumn()
