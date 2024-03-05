@@ -8,7 +8,7 @@ import {
 } from 'typeorm';
 
 @Entity()
-export class Category {
+export class JobCategory {
   @PrimaryGeneratedColumn('uuid')
   id!: string;
 
