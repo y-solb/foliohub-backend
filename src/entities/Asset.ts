@@ -33,6 +33,9 @@ export class Asset {
   @Column('uuid')
   layoutId!: string;
 
+  @Column('json', { nullable: true })
+  pos!: string;
+
   @Column('uuid')
   fkUserId!: string;
 

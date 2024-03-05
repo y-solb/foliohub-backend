@@ -4,8 +4,8 @@ import { AppDataSource } from '../../data-source';
 import { Portfolio } from '../../entities/Portfolio';
 
 export const listPortFolio = async (req: Request, res: Response, next: NextFunction) => {
-  const currentPage: number = (req.query.page || 0) as number;
-  const perPage: number = (req.query.count || 10) as number;
+  const currentPage: number = Number(req.query.page) || 0;
+  const perPage: number = Number(req.query.count) || 10;
 
   if (currentPage < 0) {
     return next(
@@ -34,6 +34,7 @@ export const listPortFolio = async (req: Request, res: Response, next: NextFunct
         total,
         currentPage,
         lastPage: Math.ceil(total / perPage),
+        hasNextPage: Math.ceil(total / perPage) === currentPage ? false : true,
       },
     });
   } catch (error) {

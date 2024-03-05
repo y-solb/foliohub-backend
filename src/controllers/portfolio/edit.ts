@@ -51,6 +51,7 @@ export const editPortFolio = async (req: Request, res: Response, next: NextFunct
         } else if (asset.type === 'image') {
           existingAsset.link = asset.value.link;
           existingAsset.imageUrl = asset.value.imageUrl;
+          existingAsset.pos = asset.value.pos;
         } else if (asset.type === 'content') {
           existingAsset.content = asset.value.content;
         }

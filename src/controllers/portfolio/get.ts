@@ -49,7 +49,7 @@ export const getPortFolio = async (req: Request, res: Response, next: NextFuncti
         return {
           id: asset.id,
           type: asset.type,
-          value: { imageUrl: asset.imageUrl, link: asset.link },
+          value: { imageUrl: asset.imageUrl, link: asset.link, pos: asset.pos },
         };
       } else if (asset.type === 'link') {
         return {
