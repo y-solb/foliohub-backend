@@ -42,7 +42,7 @@ export class User {
   jobCategoryCode!: string;
 
   @ManyToOne(() => JobCategory)
-  @JoinColumn({ name: 'jobCategoryCode' })
+  @JoinColumn({ name: 'jobCategoryCode', referencedColumnName: 'code' })
   jobCategory!: JobCategory;
 
   @CreateDateColumn()
