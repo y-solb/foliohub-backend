@@ -1,3 +1,4 @@
+import { JobCategory } from './../../entities/JobCategory';
 import { Request, Response, NextFunction } from 'express';
 import { CustomError } from '../../libs/customError';
 import { AppDataSource } from '../../data-source';
@@ -5,13 +6,13 @@ import { User } from '../../entities/User';
 import { Portfolio } from '../../entities/Portfolio';
 
 export const my = async (req: Request, res: Response, next: NextFunction) => {
-  const { userId } = req.params;
+  const { id } = req.user;
 
   try {
     const UserRepository = AppDataSource.getRepository(User);
     const user = await UserRepository.findOne({
       where: {
-        userId,
+        id,
       },
       select: ['id', 'userId', 'jobCategoryCode'],
     });
@@ -25,8 +26,16 @@ export const my = async (req: Request, res: Response, next: NextFunction) => {
       },
       select: ['displayName', 'thumbnail'],
     });
-    console.log(portfolio, user.id);
-    return res.json({ ...user, ...portfolio });
+
+    const JobCategoryRepository = AppDataSource.getRepository(JobCategory);
+    const jobCategory = await JobCategoryRepository.findOne({
+      where: {
+        code: user.jobCategoryCode,
+      },
+      select: ['code', 'name'],
+    });
+
+    return res.json({ ...user, ...portfolio, job: jobCategory?.name, jobCode: jobCategory?.code });
   } catch (error) {
     return next(new CustomError(400, 'Raw', 'Error', null, error));
   }
