@@ -14,7 +14,7 @@ export const my = async (req: Request, res: Response, next: NextFunction) => {
       where: {
         id,
       },
-      select: ['id', 'userId', 'jobCategoryCode'],
+      select: ['id', 'userId'],
     });
     if (!user) {
       return next(new CustomError(400, 'General', '해당 user가 존재하지 않습니다.'));
@@ -24,13 +24,16 @@ export const my = async (req: Request, res: Response, next: NextFunction) => {
       where: {
         fkUserId: user.id,
       },
-      select: ['displayName', 'thumbnail'],
+      select: ['displayName', 'thumbnail', 'jobCategoryCode'],
     });
 
+    if (!portfolio) {
+      return next(new CustomError(400, 'General', '해당 portfolio가 존재하지 않습니다.'));
+    }
     const JobCategoryRepository = AppDataSource.getRepository(JobCategory);
     const jobCategory = await JobCategoryRepository.findOne({
       where: {
-        code: user.jobCategoryCode,
+        code: portfolio.jobCategoryCode,
       },
       select: ['code', 'name'],
     });

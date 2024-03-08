@@ -6,14 +6,11 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
   OneToOne,
-  ManyToOne,
-  JoinColumn,
 } from 'typeorm';
 import { Portfolio } from './Portfolio';
 import AuthToken from './AuthToken';
 import { AppDataSource } from '../data-source';
 import { generateToken } from '../libs/token';
-import { JobCategory } from './JobCategory';
 
 @Entity()
 export class User {
@@ -37,13 +34,6 @@ export class User {
 
   @OneToOne(() => Portfolio, (portfolio) => portfolio.user, { cascade: true })
   portfolio!: Portfolio;
-
-  @Column({ nullable: true })
-  jobCategoryCode!: string;
-
-  @ManyToOne(() => JobCategory)
-  @JoinColumn({ name: 'jobCategoryCode', referencedColumnName: 'code' })
-  jobCategory!: JobCategory;
 
   @CreateDateColumn()
   createdAt!: Date;
