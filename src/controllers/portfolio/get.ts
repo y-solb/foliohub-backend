@@ -4,8 +4,10 @@ import { AppDataSource } from '../../data-source';
 import { Portfolio } from '../../entities/Portfolio';
 import { Asset } from '../../entities/Asset';
 import { User } from '../../entities/User';
+import { LikePortfolio } from '../../entities/LikePortfolio';
 
 export const getPortFolio = async (req: Request, res: Response, next: NextFunction) => {
+  const { id } = req.user;
   const { userId } = req.params;
 
   try {
@@ -23,6 +25,14 @@ export const getPortFolio = async (req: Request, res: Response, next: NextFuncti
       where: {
         fkUserId: user.id,
       },
+    });
+    if (!portfolio) {
+      return next(new CustomError(400, 'General', '해당 portfolio가 존재하지 않습니다.'));
+    }
+
+    const LikePortfolioRepository = AppDataSource.getRepository(LikePortfolio);
+    const like = await LikePortfolioRepository.findOne({
+      where: { fkPortfolioId: portfolio.id, fkUserId: id, status: true },
     });
 
     const assetRepository = AppDataSource.getRepository(Asset);
@@ -60,7 +70,12 @@ export const getPortFolio = async (req: Request, res: Response, next: NextFuncti
       }
     });
 
-    return res.json({ ...portfolio, assets: data });
+    return res.json({
+      userId: user.userId,
+      ...portfolio,
+      isLike: like ? true : false,
+      assets: data,
+    });
   } catch (error) {
     return next(new CustomError(400, 'Raw', 'Error', null, error));
   }
