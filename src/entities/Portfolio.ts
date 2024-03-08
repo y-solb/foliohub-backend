@@ -28,6 +28,9 @@ export class Portfolio {
   @Column('json', { nullable: true })
   layout!: string;
 
+  @Column({ default: 0 })
+  likeCount!: number;
+
   @Column('uuid')
   fkUserId!: string;
 
