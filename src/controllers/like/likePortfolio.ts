@@ -21,7 +21,11 @@ export const likePortfolio = async (req: Request, res: Response, next: NextFunct
     if (existingLike) {
       existingLike.status = true;
       await likePortFolioRepository.save(existingLike);
-      return res.json({ success: true, message: '좋아요가 성공적으로 업데이트되었습니다.' });
+      return res.json({
+        success: true,
+        message: '좋아요가 성공적으로 업데이트되었습니다.',
+        isLike: true,
+      });
     }
 
     const newLike = new LikePortfolio();
@@ -31,7 +35,11 @@ export const likePortfolio = async (req: Request, res: Response, next: NextFunct
 
     await likePortFolioRepository.save(newLike);
 
-    return res.json({ success: true, message: '좋아요가 성공적으로 업데이트되었습니다.' });
+    return res.json({
+      success: true,
+      message: '좋아요가 성공적으로 업데이트되었습니다.',
+      isLike: true,
+    });
   } catch (error) {
     return next(new CustomError(400, 'Raw', 'Error', null, error));
   }
@@ -55,7 +63,11 @@ export const unlikePortfolio = async (req: Request, res: Response, next: NextFun
     if (existingLike) {
       existingLike.status = false;
       await likePortFolioRepository.save(existingLike);
-      return res.json({ success: true, message: '좋아요가 성공적으로 업데이트되었습니다.' });
+      return res.json({
+        success: true,
+        message: '좋아요가 성공적으로 업데이트되었습니다.',
+        isLike: false,
+      });
     }
     return next(new CustomError(400, 'Validation', '해당 값이 존재하지 않습니다.'));
   } catch (error) {
