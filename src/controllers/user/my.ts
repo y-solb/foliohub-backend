@@ -14,7 +14,7 @@ export const my = async (req: Request, res: Response, next: NextFunction) => {
       where: {
         id,
       },
-      select: ['id', 'userId'],
+      select: ['id', 'username'],
     });
     if (!user) {
       return next(new CustomError(400, 'General', '해당 user가 존재하지 않습니다.'));

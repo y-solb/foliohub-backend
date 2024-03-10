@@ -5,9 +5,9 @@ import { Portfolio } from '../../entities/Portfolio';
 import { Asset } from '../../entities/Asset';
 
 export const editPortFolio = async (req: Request, res: Response, next: NextFunction) => {
-  const { userId } = req.params;
+  const { username } = req.params;
   const { displayName, shortBio, thumbnail, assets, layout } = req.body;
-  if (userId !== req.user.userId) {
+  if (username !== req.user.username) {
     return next(new CustomError(401, 'Unauthorized', '해당 페이지에 접근 권한이 없습니다.'));
   }
 

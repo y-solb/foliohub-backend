@@ -8,13 +8,13 @@ import { LikePortfolio } from '../../entities/LikePortfolio';
 
 export const getPortFolio = async (req: Request, res: Response, next: NextFunction) => {
   const { id } = req.user;
-  const { userId } = req.params;
+  const { username } = req.params;
 
   try {
     const UserRepository = AppDataSource.getRepository(User);
     const user = await UserRepository.findOne({
       where: {
-        userId,
+        username,
       },
     });
     if (!user) {
@@ -71,7 +71,7 @@ export const getPortFolio = async (req: Request, res: Response, next: NextFuncti
     });
 
     return res.json({
-      userId: user.userId,
+      username: user.username,
       ...portfolio,
       isLike: like ? true : false,
       assets: data,

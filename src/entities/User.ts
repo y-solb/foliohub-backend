@@ -23,7 +23,7 @@ export class User {
 
   @Index()
   @Column({ unique: true, length: 255 })
-  userId!: string;
+  username!: string;
 
   @Column()
   provider!: 'google';

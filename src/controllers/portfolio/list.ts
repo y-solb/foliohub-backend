@@ -29,7 +29,7 @@ export const listPortFolio = async (req: Request, res: Response, next: NextFunct
       data: portfolios.map((portfolio) => {
         const { user, jobCategory, ...rest } = portfolio;
         return {
-          userId: user.userId,
+          username: user.username,
           userJob: jobCategory ? jobCategory.name : null,
           ...rest,
         };

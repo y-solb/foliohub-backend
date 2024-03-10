@@ -9,8 +9,8 @@ import { listLike } from '../../controllers/like/list';
 const router = Router();
 
 router.get('/list', listPortFolio);
-router.get('/:userId', userMiddleware, getPortFolio);
-router.put('/:userId', userMiddleware, editPortFolio);
+router.get('/:username', userMiddleware, getPortFolio);
+router.put('/:username', userMiddleware, editPortFolio);
 
 router.get('/like/list', userMiddleware, listLike);
 router.post('/like/:portfolioId', userMiddleware, likePortfolio);

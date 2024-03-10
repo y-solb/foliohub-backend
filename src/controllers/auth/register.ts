@@ -11,20 +11,20 @@ import { Portfolio } from '../../entities/Portfolio';
  */
 export const register = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const { userId } = req.body;
+    const { username } = req.body;
 
-    if (!userId) {
-      return next(new CustomError(400, 'Validation', '해당 userId값이 존재하지 않습니다.'));
+    if (!username) {
+      return next(new CustomError(400, 'Validation', '해당 username값이 존재하지 않습니다.'));
     }
 
     const userRepository = AppDataSource.getRepository(User);
     const existingUsername = await userRepository.findOne({
       where: {
-        userId,
+        username,
       },
     });
     if (existingUsername) {
-      return next(new CustomError(400, 'General', '해당 userId을 사용하는 사용자가 존재합니다.'));
+      return next(new CustomError(400, 'General', '해당 username을 사용하는 사용자가 존재합니다.'));
     }
 
     const { email, provider, providerId } = decodeToken(req.cookies.registerToken) as {
@@ -34,7 +34,7 @@ export const register = async (req: Request, res: Response, next: NextFunction) 
     };
     const user = new User();
     user.email = email;
-    user.userId = userId;
+    user.username = username;
     user.provider = provider;
     user.providerId = providerId;
 

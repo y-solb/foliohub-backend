@@ -24,7 +24,7 @@ export default async (req: Request, res: Response, next: NextFunction) => {
 
       const accessToken = generateToken(
         {
-          userId: authToken.fkUserId,
+          username: authToken.fkUserId,
         },
         {
           subject: 'access_token',
@@ -37,26 +37,30 @@ export default async (req: Request, res: Response, next: NextFunction) => {
         where: {
           id: authToken.fkUserId,
         },
+        relations: ['portfolio'],
       });
       if (!user)
         return next(new CustomError(401, 'Unauthorized', '해당 user가 존재하지 않습니다.'));
-
-      req.user = { ...user, accessToken };
+      const { portfolio, ...rest } = user;
+      req.user = { ...rest, thumbnail: portfolio.thumbnail, accessToken };
 
       return next();
     }
 
-    const { userId } = decodeToken(accessToken) as { userId: string };
+    const { username } = decodeToken(accessToken) as { username: string };
 
     const userRepository = AppDataSource.getRepository(User);
     const user = await userRepository.findOne({
       where: {
-        id: userId,
+        id: username,
       },
+      relations: ['portfolio'],
     });
     if (!user) return next(new CustomError(401, 'Unauthorized', '해당 user가 존재하지 않습니다.'));
 
-    req.user = user;
+    const { portfolio, ...rest } = user;
+    req.user = { ...rest, thumbnail: portfolio.thumbnail };
+    // req.user = user;
     return next();
   } catch (error) {
     return next(new CustomError(400, 'Raw', 'Error', null, error));

@@ -44,7 +44,7 @@ export const listLike = async (req: Request, res: Response, next: NextFunction) 
           where: {
             id: fkUserId,
           },
-          select: ['userId'],
+          select: ['username'],
         });
         if (!user) return;
 
@@ -57,7 +57,7 @@ export const listLike = async (req: Request, res: Response, next: NextFunction) 
         });
 
         return {
-          userId: user.userId,
+          username: user.username,
           userJob: jobCategory ? jobCategory.name : null,
           id,
           displayName,

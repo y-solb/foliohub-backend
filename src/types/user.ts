@@ -1,6 +1,7 @@
 export type User = {
   id: string;
   email: string;
-  userId: string;
+  username: string;
+  thumbnail: string;
   accessToken?: string;
 };
