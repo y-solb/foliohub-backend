@@ -19,7 +19,7 @@ export const listPortFolio = async (req: Request, res: Response, next: NextFunct
   try {
     const [portfolios, total] = await AppDataSource.getRepository(Portfolio).findAndCount({
       order: { updatedAt: 'DESC' },
-      select: ['id', 'displayName', 'shortBio', 'thumbnail', 'likeCount', 'fkUserId', 'updatedAt'],
+      select: ['id', 'displayName', 'shortBio', 'thumbnail', 'likeCount', 'userId', 'updatedAt'],
       relations: ['user', 'jobCategory'],
       skip: (currentPage - 1) * perPage,
       take: perPage,

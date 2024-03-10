@@ -37,17 +37,17 @@ export class Asset {
   pos!: string;
 
   @Column('uuid')
-  fkUserId!: string;
+  userId!: string;
 
   @Column('uuid')
-  fkPortfolioId!: string;
+  portfolioId!: string;
 
   @ManyToOne(() => User, { onDelete: 'CASCADE' })
-  @JoinColumn({ name: 'fkUserId' })
+  @JoinColumn({ name: 'userId' })
   user!: User;
 
   @ManyToOne(() => Portfolio, (portfolio) => portfolio.assets, { onDelete: 'CASCADE' })
-  @JoinColumn({ name: 'fkPortfolioId' })
+  @JoinColumn({ name: 'portfolioId' })
   portfolio!: Portfolio;
 
   @CreateDateColumn()

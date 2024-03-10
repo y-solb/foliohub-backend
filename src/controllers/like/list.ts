@@ -26,7 +26,7 @@ export const listLike = async (req: Request, res: Response, next: NextFunction) 
   try {
     const [portfolios, total] = await AppDataSource.getRepository(LikePortfolio).findAndCount({
       order: { updatedAt: 'DESC' },
-      select: ['id', 'fkPortfolioId', 'fkUserId', 'status', 'updatedAt'],
+      select: ['id', 'portfolioId', 'userId', 'status', 'updatedAt'],
       where: {
         status: true,
       },
@@ -37,12 +37,12 @@ export const listLike = async (req: Request, res: Response, next: NextFunction) 
     const portfolioList = await Promise.all(
       portfolios.map(async (p) => {
         const {
-          portfolio: { id, displayName, shortBio, thumbnail, likeCount, fkUserId, jobCategoryCode },
+          portfolio: { id, displayName, shortBio, thumbnail, likeCount, userId, jobCategoryCode },
         } = p;
         const userRepository = AppDataSource.getRepository(User);
         const user = await userRepository.findOne({
           where: {
-            id: fkUserId,
+            id: userId,
           },
           select: ['username'],
         });
@@ -64,7 +64,7 @@ export const listLike = async (req: Request, res: Response, next: NextFunction) 
           shortBio,
           thumbnail,
           likeCount,
-          fkUserId,
+          userId,
         };
       })
     );

@@ -17,7 +17,7 @@ export const likePortfolio = async (req: Request, res: Response, next: NextFunct
   try {
     const likePortFolioRepository = AppDataSource.getRepository(LikePortfolio);
     const existingLike = await likePortFolioRepository.findOne({
-      where: { fkPortfolioId: portfolioId, fkUserId: id },
+      where: { portfolioId: portfolioId, userId: id },
     });
     if (existingLike) {
       existingLike.status = true;
@@ -25,8 +25,8 @@ export const likePortfolio = async (req: Request, res: Response, next: NextFunct
       await likePortFolioRepository.save(existingLike);
     } else {
       const newLike = new LikePortfolio();
-      newLike.fkPortfolioId = portfolioId;
-      newLike.fkUserId = id;
+      newLike.portfolioId = portfolioId;
+      newLike.userId = id;
       newLike.status = true;
 
       await likePortFolioRepository.save(newLike);
@@ -67,7 +67,7 @@ export const unlikePortfolio = async (req: Request, res: Response, next: NextFun
   try {
     const likePortFolioRepository = AppDataSource.getRepository(LikePortfolio);
     const existingLike = await likePortFolioRepository.findOne({
-      where: { fkPortfolioId: portfolioId, fkUserId: id },
+      where: { portfolioId: portfolioId, userId: id },
     });
     if (!existingLike) {
       return next(new CustomError(400, 'Validation', '해당 값이 존재하지 않습니다.'));

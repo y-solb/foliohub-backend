@@ -34,10 +34,10 @@ export class Portfolio {
   likeCount!: number;
 
   @Column('uuid')
-  fkUserId!: string;
+  userId!: string;
 
   @OneToOne(() => User, (user) => user.id)
-  @JoinColumn({ name: 'fkUserId' })
+  @JoinColumn({ name: 'userId' })
   user!: User;
 
   @OneToMany(() => Asset, (asset) => asset.portfolio)

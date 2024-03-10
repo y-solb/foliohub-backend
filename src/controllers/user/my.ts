@@ -22,7 +22,7 @@ export const my = async (req: Request, res: Response, next: NextFunction) => {
     const portfolioRepository = AppDataSource.getRepository(Portfolio);
     const portfolio = await portfolioRepository.findOne({
       where: {
-        fkUserId: user.id,
+        userId: user.id,
       },
       select: ['displayName', 'thumbnail', 'jobCategoryCode'],
     });

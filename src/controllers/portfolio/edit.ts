@@ -15,7 +15,7 @@ export const editPortFolio = async (req: Request, res: Response, next: NextFunct
     const portfolioRepository = AppDataSource.getRepository(Portfolio);
     const portfolio = await portfolioRepository.findOne({
       where: {
-        fkUserId: req.user.id,
+        userId: req.user.id,
       },
     });
 
@@ -63,8 +63,8 @@ export const editPortFolio = async (req: Request, res: Response, next: NextFunct
       if (asset.command === 'save') {
         const newAsset = new Asset();
         newAsset.layoutId = asset.id;
-        newAsset.fkUserId = req.user.id;
-        newAsset.fkPortfolioId = portfolio.id;
+        newAsset.userId = req.user.id;
+        newAsset.portfolioId = portfolio.id;
         newAsset.type = asset.type;
         if (asset.type === 'github') {
           newAsset.githubId = asset.value.githubId;

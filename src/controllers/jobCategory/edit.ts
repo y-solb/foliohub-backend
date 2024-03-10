@@ -15,7 +15,7 @@ export const editJobCategory = async (req: Request, res: Response, next: NextFun
   }
   try {
     const portfolioRepository = AppDataSource.getRepository(Portfolio);
-    const portfolio = await portfolioRepository.findOne({ where: { fkUserId: id } });
+    const portfolio = await portfolioRepository.findOne({ where: { userId: id } });
 
     if (!portfolio) {
       return next(new CustomError(400, 'General', '해당 portfolio가 존재하지 않습니다.'));

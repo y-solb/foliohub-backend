@@ -19,17 +19,17 @@ export class LikePortfolio {
   status!: boolean;
 
   @Column('uuid')
-  fkUserId!: string;
+  userId!: string;
 
   @Column('uuid')
-  fkPortfolioId!: string;
+  portfolioId!: string;
 
   @ManyToOne(() => User)
-  @JoinColumn({ name: 'fkUserId' })
+  @JoinColumn({ name: 'userId' })
   user!: User;
 
   @ManyToOne(() => Portfolio)
-  @JoinColumn({ name: 'fkPortfolioId' })
+  @JoinColumn({ name: 'portfolioId' })
   portfolio!: Portfolio;
 
   @CreateDateColumn()

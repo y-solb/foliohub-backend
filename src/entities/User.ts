@@ -51,7 +51,7 @@ export class User {
     );
 
     const authToken = new AuthToken();
-    authToken.fkUserId = this.id;
+    authToken.userId = this.id;
     authToken.token = refreshToken;
     authToken.expiresAt = new Date(Date.now() + 14 * 24 * 60 * 60 * 1000);
     await AppDataSource.getRepository(AuthToken).save(authToken);

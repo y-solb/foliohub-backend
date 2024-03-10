@@ -23,7 +23,7 @@ export const getPortFolio = async (req: Request, res: Response, next: NextFuncti
     const portfolioRepository = AppDataSource.getRepository(Portfolio);
     const portfolio = await portfolioRepository.findOne({
       where: {
-        fkUserId: user.id,
+        userId: user.id,
       },
     });
     if (!portfolio) {
@@ -32,13 +32,13 @@ export const getPortFolio = async (req: Request, res: Response, next: NextFuncti
 
     const LikePortfolioRepository = AppDataSource.getRepository(LikePortfolio);
     const like = await LikePortfolioRepository.findOne({
-      where: { fkPortfolioId: portfolio.id, fkUserId: id, status: true },
+      where: { portfolioId: portfolio.id, userId: id, status: true },
     });
 
     const assetRepository = AppDataSource.getRepository(Asset);
     const assets = await assetRepository.find({
       where: {
-        fkUserId: user.id,
+        userId: user.id,
       },
     });
 

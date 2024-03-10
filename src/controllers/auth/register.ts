@@ -41,7 +41,7 @@ export const register = async (req: Request, res: Response, next: NextFunction) 
     await userRepository.save(user);
 
     const portfolio = new Portfolio();
-    portfolio.fkUserId = user.id;
+    portfolio.userId = user.id;
     await AppDataSource.getRepository(Portfolio).save(portfolio);
 
     res.clearCookie('registerToken');
