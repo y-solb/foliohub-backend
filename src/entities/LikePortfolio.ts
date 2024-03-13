@@ -15,7 +15,7 @@ export class LikePortfolio {
   @PrimaryGeneratedColumn('uuid')
   id!: string;
 
-  @Column()
+  @Column({ default: true })
   status!: boolean;
 
   @Column('uuid')
