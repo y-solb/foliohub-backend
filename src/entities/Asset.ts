@@ -36,6 +36,9 @@ export class Asset {
   @Column('json', { nullable: true })
   pos!: string;
 
+  @Column({ default: true })
+  status!: boolean;
+
   @Column('uuid')
   userId!: string;
 
