@@ -3,10 +3,26 @@ import { CustomError } from '../../libs/customError';
 import { AppDataSource } from '../../data-source';
 import { Portfolio } from '../../entities/Portfolio';
 import { Asset } from '../../entities/Asset';
+import { SocialLink } from '../../entities/SocialLink';
 
 export const editPortFolio = async (req: Request, res: Response, next: NextFunction) => {
   const { username } = req.params;
-  const { displayName, shortBio, thumbnail, assets, layout } = req.body;
+  const {
+    displayName,
+    shortBio,
+    thumbnail,
+    assets,
+    layout,
+    socialLink: {
+      blogLink,
+      linkedinLink,
+      facebookLink,
+      githubLink,
+      instagramLink,
+      twitterLink,
+      youtubeLink,
+    },
+  } = req.body;
   if (username !== req.user.username) {
     return next(new CustomError(401, 'Unauthorized', '해당 페이지에 접근 권한이 없습니다.'));
   }
@@ -27,8 +43,26 @@ export const editPortFolio = async (req: Request, res: Response, next: NextFunct
     portfolio.shortBio = shortBio;
     portfolio.thumbnail = thumbnail;
     portfolio.layout = layout;
-
     await portfolioRepository.save(portfolio);
+
+    const socialLinkRepository = AppDataSource.getRepository(SocialLink);
+    const socialLink = await socialLinkRepository.findOne({
+      where: {
+        userId: req.user.id,
+      },
+    });
+    if (!socialLink) {
+      return next(new CustomError(400, 'General', '해당 socialLink가 존재하지 않습니다.'));
+    }
+
+    socialLink.blogLink = blogLink;
+    socialLink.linkedinLink = linkedinLink;
+    socialLink.facebookLink = facebookLink;
+    socialLink.githubLink = githubLink;
+    socialLink.instagramLink = instagramLink;
+    socialLink.twitterLink = twitterLink;
+    socialLink.youtubeLink = youtubeLink;
+    await socialLinkRepository.save(socialLink);
 
     const assetRepository = AppDataSource.getRepository(Asset);
 
@@ -55,6 +89,22 @@ export const editPortFolio = async (req: Request, res: Response, next: NextFunct
         } else if (asset.type === 'content') {
           existingAsset.content = asset.value.content;
         }
+        await assetRepository.save(existingAsset);
+        continue;
+      }
+
+      // delete asset
+      if (asset.command === 'delete') {
+        const existingAsset = await assetRepository.findOne({
+          where: {
+            id: asset.id,
+          },
+        });
+        if (!existingAsset) {
+          return next(new CustomError(400, 'General', '해당 asset이 존재하지 않습니다.'));
+        }
+
+        existingAsset.status = false;
         await assetRepository.save(existingAsset);
         continue;
       }

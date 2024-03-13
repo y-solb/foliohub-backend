@@ -5,6 +5,7 @@ import { Portfolio } from '../../entities/Portfolio';
 import { Asset } from '../../entities/Asset';
 import { User } from '../../entities/User';
 import { LikePortfolio } from '../../entities/LikePortfolio';
+import { SocialLink } from '../../entities/SocialLink';
 
 export const getPortFolio = async (req: Request, res: Response, next: NextFunction) => {
   const { id } = req.user;
@@ -35,10 +36,18 @@ export const getPortFolio = async (req: Request, res: Response, next: NextFuncti
       where: { portfolioId: portfolio.id, userId: id, status: true },
     });
 
+    const socialLinkRepository = AppDataSource.getRepository(SocialLink);
+    const socialLink = await socialLinkRepository.findOne({
+      where: {
+        userId: user.id,
+      },
+    });
+
     const assetRepository = AppDataSource.getRepository(Asset);
     const assets = await assetRepository.find({
       where: {
         userId: user.id,
+        status: true,
       },
     });
 
@@ -74,6 +83,15 @@ export const getPortFolio = async (req: Request, res: Response, next: NextFuncti
       username: user.username,
       ...portfolio,
       isLike: like ? true : false,
+      socialLink: {
+        blogLink: socialLink?.blogLink,
+        linkedinLink: socialLink?.linkedinLink,
+        githubLink: socialLink?.githubLink,
+        instagramLink: socialLink?.instagramLink,
+        facebookLink: socialLink?.facebookLink,
+        twitterLink: socialLink?.twitterLink,
+        youtubeLink: socialLink?.youtubeLink,
+      },
       assets: data,
     });
   } catch (error) {
