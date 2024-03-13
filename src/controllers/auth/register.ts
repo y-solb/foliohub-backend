@@ -4,6 +4,7 @@ import { User } from '../../entities/User';
 import { AppDataSource } from '../../data-source';
 import { CustomError } from '../../libs/customError';
 import { Portfolio } from '../../entities/Portfolio';
+import { SocialLink } from '../../entities/SocialLink';
 
 /**
  * 회원가입
@@ -43,6 +44,10 @@ export const register = async (req: Request, res: Response, next: NextFunction) 
     const portfolio = new Portfolio();
     portfolio.userId = user.id;
     await AppDataSource.getRepository(Portfolio).save(portfolio);
+
+    const socialLink = new SocialLink();
+    socialLink.userId = user.id;
+    await AppDataSource.getRepository(SocialLink).save(socialLink);
 
     res.clearCookie('registerToken');
 
