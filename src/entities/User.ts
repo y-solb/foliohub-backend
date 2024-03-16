@@ -46,6 +46,16 @@ export class User {
   updatedAt!: Date;
 
   async generateUserToken() {
+    const accessToken = generateToken(
+      {
+        userId: this.id,
+      },
+      {
+        subject: 'accessToken',
+        expiresIn: '2m',
+      }
+    );
+
     const refreshToken = generateToken(
       {},
       {
@@ -61,6 +71,7 @@ export class User {
     await AppDataSource.getRepository(AuthToken).save(authToken);
 
     return {
+      accessToken,
       refreshToken,
     };
   }

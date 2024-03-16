@@ -8,7 +8,6 @@ import { LikePortfolio } from '../../entities/LikePortfolio';
 import { SocialLink } from '../../entities/SocialLink';
 
 export const getPortFolio = async (req: Request, res: Response, next: NextFunction) => {
-  const { id } = req.user;
   const { username } = req.params;
 
   try {
@@ -31,10 +30,16 @@ export const getPortFolio = async (req: Request, res: Response, next: NextFuncti
       return next(new CustomError(400, 'General', '해당 portfolio가 존재하지 않습니다.'));
     }
 
-    const LikePortfolioRepository = AppDataSource.getRepository(LikePortfolio);
-    const like = await LikePortfolioRepository.findOne({
-      where: { portfolioId: portfolio.id, userId: id, status: true },
-    });
+    let isLike = false;
+    if (req.user) {
+      const LikePortfolioRepository = AppDataSource.getRepository(LikePortfolio);
+      const like = await LikePortfolioRepository.findOne({
+        where: { portfolioId: portfolio.id, userId: req.user.id, status: true },
+      });
+      if (like) {
+        isLike = true;
+      }
+    }
 
     const socialLinkRepository = AppDataSource.getRepository(SocialLink);
     const socialLink = await socialLinkRepository.findOne({
@@ -82,7 +87,7 @@ export const getPortFolio = async (req: Request, res: Response, next: NextFuncti
     return res.json({
       username: user.username,
       ...portfolio,
-      isLike: like ? true : false,
+      isLike,
       socialLink: {
         blogLink: socialLink?.blogLink,
         linkedinLink: socialLink?.linkedinLink,

@@ -51,8 +51,8 @@ export const register = async (req: Request, res: Response, next: NextFunction) 
 
     res.clearCookie('registerToken');
 
-    const { refreshToken } = await user.generateUserToken();
-    setTokenCookie(res, refreshToken);
+    const token = await user.generateUserToken();
+    setTokenCookie(res, token);
     res.json('success');
   } catch (error) {
     return next(new CustomError(400, 'Raw', 'Error', null, error));

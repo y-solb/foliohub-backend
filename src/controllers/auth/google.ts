@@ -80,8 +80,8 @@ export const googleCallback = async (req: Request, res: Response, next: NextFunc
 
     // login
     if (user) {
-      const { refreshToken } = await user.generateUserToken();
-      setTokenCookie(res, refreshToken);
+      const token = await user.generateUserToken();
+      setTokenCookie(res, token);
       // res.json({ accessToken });
       res.redirect(`http://localhost:3000`);
       return;

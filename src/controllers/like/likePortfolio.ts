@@ -5,6 +5,10 @@ import { LikePortfolio } from '../../entities/LikePortfolio';
 import { Portfolio } from '../../entities/Portfolio';
 
 export const likePortfolio = async (req: Request, res: Response, next: NextFunction) => {
+  if (!req.user) {
+    return next(new CustomError(401, 'Unauthorized', '해당 api에 접근 권한이 없습니다.'));
+  }
+
   const { id } = req.user;
   if (!id) {
     return next(new CustomError(401, 'Unauthorized', '해당 api에 접근 권한이 없습니다.'));
@@ -55,6 +59,10 @@ export const likePortfolio = async (req: Request, res: Response, next: NextFunct
 };
 
 export const unlikePortfolio = async (req: Request, res: Response, next: NextFunction) => {
+  if (!req.user) {
+    return next(new CustomError(401, 'Unauthorized', '해당 api에 접근 권한이 없습니다.'));
+  }
+
   const { id } = req.user;
   if (!id) {
     return next(new CustomError(401, 'Unauthorized', '해당 api에 접근 권한이 없습니다.'));

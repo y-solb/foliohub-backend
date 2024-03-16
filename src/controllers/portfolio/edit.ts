@@ -6,6 +6,10 @@ import { Asset } from '../../entities/Asset';
 import { SocialLink } from '../../entities/SocialLink';
 
 export const editPortFolio = async (req: Request, res: Response, next: NextFunction) => {
+  if (!req.user) {
+    return next(new CustomError(401, 'Unauthorized', '해당 api에 접근 권한이 없습니다.'));
+  }
+
   const { username } = req.params;
   const {
     displayName,

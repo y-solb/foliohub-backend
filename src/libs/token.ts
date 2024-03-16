@@ -15,18 +15,33 @@ export const decodeToken = (token: string) => {
   return jwt.verify(token, process.env.JWT_SECRET_KEY);
 };
 
-export function setTokenCookie(res: Response, refreshToken: string) {
-  // const { accessToken, refreshToken } = tokens;
+export function setTokenCookie(
+  res: Response,
+  tokens: { accessToken: string; refreshToken: string }
+) {
+  const { accessToken, refreshToken } = tokens;
 
-  // res.cookie("accessToken", accessToken, {
-  //   // maxAge: 1000 * 60 * 60,
-  //   maxAge: 60 * 1000,
-  //   httpOnly: true,
-  // });
+  res.cookie('accessToken', accessToken, {
+    path: '/',
+    maxAge: 1000 * 60 * 2,
+    httpOnly: true,
+    sameSite: 'strict',
+    secure: true,
+  });
 
   res.cookie('refreshToken', refreshToken, {
     path: '/',
-    maxAge: 1000 * 60 * 60 * 24 * 14,
+    maxAge: 1000 * 60 * 60 * 24 * 14, // 14일
+    httpOnly: true,
+    sameSite: 'strict',
+    secure: true,
+  });
+}
+
+export function setAccessTokenCookie(res: Response, accessToken: string) {
+  res.cookie('accessToken', accessToken, {
+    path: '/',
+    maxAge: 1000 * 60 * 2,
     httpOnly: true,
     sameSite: 'strict',
     secure: true,

@@ -4,6 +4,10 @@ import { AppDataSource } from '../../data-source';
 import { Portfolio } from '../../entities/Portfolio';
 
 export const editJobCategory = async (req: Request, res: Response, next: NextFunction) => {
+  if (!req.user) {
+    return next(new CustomError(401, 'Unauthorized', '해당 api에 접근 권한이 없습니다.'));
+  }
+
   const { id } = req.user;
   if (!id) {
     return next(new CustomError(401, 'Unauthorized', '해당 api에 접근 권한이 없습니다.'));

@@ -6,10 +6,10 @@ import { JobCategory } from '../../entities/JobCategory';
 import { User } from '../../entities/User';
 
 export const listLike = async (req: Request, res: Response, next: NextFunction) => {
-  const { id } = req.user;
-  if (!id) {
+  if (!req.user) {
     return next(new CustomError(401, 'Unauthorized', '해당 api에 접근 권한이 없습니다.'));
   }
+  const { id } = req.user;
 
   const currentPage: number = Number(req.query.page) || 0;
   const perPage: number = Number(req.query.count) || 10;
@@ -29,6 +29,7 @@ export const listLike = async (req: Request, res: Response, next: NextFunction) 
       select: ['id', 'portfolioId', 'userId', 'status', 'updatedAt'],
       where: {
         status: true,
+        userId: id,
       },
       relations: ['portfolio'],
       skip: (currentPage - 1) * perPage,
