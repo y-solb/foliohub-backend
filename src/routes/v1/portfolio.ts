@@ -5,10 +5,13 @@ import { getPortFolio } from '../../controllers/portfolio/get';
 import { listPortFolio } from '../../controllers/portfolio/list';
 import { likePortfolio, unlikePortfolio } from '../../controllers/like/likePortfolio';
 import { listLike } from '../../controllers/like/list';
+import { metadataPortfolio } from '../../controllers/portfolio/metadata';
 
 const router = Router();
 
 router.get('/list', listPortFolio);
+
+router.get('/metadata', metadataPortfolio);
 router.get('/:username', userMiddleware, getPortFolio);
 router.put('/:username', userMiddleware, editPortFolio);
 
