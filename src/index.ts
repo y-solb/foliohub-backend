@@ -13,7 +13,7 @@ const app: Express = express();
 app.use(
   cors({
     credentials: true,
-    origin: 'http://localhost:3000',
+    origin: process.env.ORIGIN,
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     allowedHeaders: ['Content-Type', 'Authorization'],
   })
@@ -29,7 +29,7 @@ const port = process.env.PORT || 3000;
 AppDataSource.initialize()
   .then(async () => {
     app.listen(port, () => {
-      console.log(`[server]: Server is running at https://localhost:${port}`);
+      console.log(`[server]: Server is running at ${process.env.APP_URL}`);
     });
     console.log('Data Source has been initialized!');
   })

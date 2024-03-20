@@ -83,7 +83,7 @@ export const googleCallback = async (req: Request, res: Response, next: NextFunc
       const token = await user.generateUserToken();
       setTokenCookie(res, token);
       // res.json({ accessToken });
-      res.redirect(`http://localhost:3000`);
+      res.redirect(`${process.env.ORIGIN}`);
       return;
     }
 
@@ -98,7 +98,7 @@ export const googleCallback = async (req: Request, res: Response, next: NextFunc
       httpOnly: true,
     });
 
-    res.redirect('http://localhost:3000/auth/register');
+    res.redirect(`${process.env.ORIGIN}/auth/register`);
   } catch (error) {
     return next(new CustomError(400, 'Raw', 'Error', null, error));
   }
