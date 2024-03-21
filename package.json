@@ -2,13 +2,13 @@
   "name": "foliohub-backend",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
   "scripts": {
     "start": "ts-node src/index.ts",
     "dev": "env-cmd -f .env.development nodemon --exec ts-node ./src/index.ts",
-    "start:production": "env-cmd -f .env.production ts-node ./src/index.ts",
+    "start:production": "npm run build && env-cmd -f .env.production NODE_PATH=./dist node ./dist/index.js",
     "typeorm": "typeorm-ts-node-commonjs",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "rimraf dist && tsc"
   },
   "keywords": [],
   "author": "",
