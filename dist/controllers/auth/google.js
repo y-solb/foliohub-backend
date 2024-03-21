@@ -17,8 +17,8 @@ const token_1 = require("../../libs/token");
 const customError_1 = require("../../libs/customError");
 const REDIRECT_PATH = '/v1/auth/callback/';
 const REDIRECT_URI = process.env.NODE_ENV === 'development'
-    ? `http://localhost:3001${REDIRECT_PATH}`
-    : `http://localhost:3001${REDIRECT_PATH}`;
+    ? `${process.env.APP_URL}${REDIRECT_PATH}`
+    : `${process.env.APP_URL}${REDIRECT_PATH}`;
 const generators = {
     google() {
         const oauth2Client = new googleapis_1.google.auth.OAuth2(process.env.GOOGLE_CLIENT_ID, process.env.GOOGLE_CLIENT_SECRET, `${REDIRECT_URI}google`);

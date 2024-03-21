@@ -8,8 +8,8 @@ import { CustomError } from '../../libs/customError';
 const REDIRECT_PATH = '/v1/auth/callback/';
 const REDIRECT_URI =
   process.env.NODE_ENV === 'development'
-    ? `http://localhost:3001${REDIRECT_PATH}`
-    : `http://localhost:3001${REDIRECT_PATH}`;
+    ? `${process.env.APP_URL}${REDIRECT_PATH}`
+    : `${process.env.APP_URL}${REDIRECT_PATH}`;
 
 const generators = {
   google() {
