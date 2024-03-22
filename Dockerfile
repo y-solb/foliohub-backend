@@ -8,4 +8,4 @@ RUN npm install
 
 COPY . .
 
-CMD ["pm2", "start", "dist/index.js"]
+CMD ["npm", "run", "start:production"]
