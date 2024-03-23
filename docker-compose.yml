@@ -19,8 +19,8 @@ services:
       context: .
     ports:
       - '3001:3001'
-    volumes:
+volumes:
       - /app/node_modules
-      - ./server:/app
+      - ./:/app
     depends_on:
       - db
