@@ -38,6 +38,7 @@ const listPortFolio = (req, res, next) => __awaiter(void 0, void 0, void 0, func
             skip: (currentPage - 1) * perPage,
             take: perPage,
         });
+        const lastPage = Math.ceil(total / perPage);
         return res.json({
             data: portfolios.map((portfolio) => {
                 const { user, jobCategory } = portfolio, rest = __rest(portfolio, ["user", "jobCategory"]);
@@ -46,8 +47,8 @@ const listPortFolio = (req, res, next) => __awaiter(void 0, void 0, void 0, func
             meta: {
                 total,
                 currentPage,
-                lastPage: Math.ceil(total / perPage),
-                hasNextPage: Math.ceil(total / perPage) === currentPage ? false : true,
+                lastPage,
+                hasNextPage: total > 0 && currentPage < lastPage,
             },
         });
     }

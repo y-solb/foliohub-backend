@@ -25,6 +25,7 @@ export const listPortFolio = async (req: Request, res: Response, next: NextFunct
       take: perPage,
     });
 
+    const lastPage = Math.ceil(total / perPage);
     return res.json({
       data: portfolios.map((portfolio) => {
         const { user, jobCategory, ...rest } = portfolio;
@@ -37,8 +38,8 @@ export const listPortFolio = async (req: Request, res: Response, next: NextFunct
       meta: {
         total,
         currentPage,
-        lastPage: Math.ceil(total / perPage),
-        hasNextPage: Math.ceil(total / perPage) === currentPage ? false : true,
+        lastPage,
+        hasNextPage: total > 0 && currentPage < lastPage,
       },
     });
   } catch (error) {
