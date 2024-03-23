@@ -21,6 +21,6 @@ services:
       - '3001:3001'
     volumes:
       - /app/node_modules
-      - ./:/app
+      - ./server:/app
     depends_on:
       - db
