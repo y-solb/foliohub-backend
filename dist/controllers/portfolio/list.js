@@ -52,6 +52,7 @@ const listPortFolio = (req, res, next) => __awaiter(void 0, void 0, void 0, func
         });
     }
     catch (error) {
+        console.error(error);
         return next(new customError_1.CustomError(400, 'Raw', 'Error', null, error));
     }
 });

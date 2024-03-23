@@ -42,6 +42,7 @@ export const listPortFolio = async (req: Request, res: Response, next: NextFunct
       },
     });
   } catch (error) {
+    console.error(error);
     return next(new CustomError(400, 'Raw', 'Error', null, error));
   }
 };
