@@ -19,7 +19,7 @@ services:
     ports:
       - '3001:3001'
     volumes:
+      - .:/app/
       - /app/node_modules
-      - ./:/app
     depends_on:
       - db
