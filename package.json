@@ -7,7 +7,7 @@
     "start:production": "env-cmd -f .env.production node ./dist/index.js",
     "start:prod": "env-cmd -f .env.production ts-node ./src/index.ts",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "rm -rf dist && tsc --build",
+    "build": "rm -rf dist && tsc",
     "typeorm": "typeorm-ts-node-commonjs"
   },
   "keywords": [],
