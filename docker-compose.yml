@@ -12,3 +12,14 @@ services:
       POSTGRES_DB: ${POSTGRES_DB}
     volumes:
       - ./data:/var/lib/postgresql/data
+  server:
+    container_name: foliohub_server
+    restart: always
+    build: .
+    ports:
+      - '3001:3001'
+    volumes:
+      - /app/node_modules
+      - ./:/app
+    depends_on:
+      - db
