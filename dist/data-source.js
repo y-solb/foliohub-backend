@@ -20,7 +20,7 @@ exports.AppDataSource = new typeorm_1.DataSource({
     // entities: [
     //   process.env.NODE_ENV === 'development' ? 'src/entities/**/*.ts' : 'src/entities/**/*.ts',
     // ],
-    entities: ['dist/entities/**/*.ts'],
+    entities: ['dist/entities/**/*.js'],
     subscribers: [],
     migrations: [],
 });
