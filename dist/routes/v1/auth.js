@@ -1,0 +1,20 @@
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const google_1 = require("../../controllers/auth/google");
+const register_1 = require("../../controllers/auth/register");
+const getAuthInfo_1 = require("../../controllers/auth/getAuthInfo");
+const logout_1 = require("../../controllers/auth/logout");
+const user_1 = __importDefault(require("../../middlewares/user"));
+const refresh_1 = require("../../controllers/auth/refresh");
+const router = (0, express_1.Router)();
+router.get('/', user_1.default, getAuthInfo_1.getAuthInfo);
+router.post('/refresh', refresh_1.refresh);
+router.post('/register', register_1.register);
+router.post('/logout', logout_1.logout);
+router.get('/redirect/:provider', google_1.socialRedirect);
+router.get('/callback/google', google_1.googleCallback);
+exports.default = router;
