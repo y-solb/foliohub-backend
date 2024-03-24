@@ -29,14 +29,10 @@ export const metadataPortfolio = async (req: Request, res: Response, next: NextF
       select: ['thumbnail', 'displayName', 'shortBio'],
     });
 
-    if (!portfolio) {
-      return next(new CustomError(400, 'General', '해당 portfolio가 존재하지 않습니다.'));
-    }
-
     return res.json({
-      thumbnail: portfolio.thumbnail,
-      displayName: portfolio.displayName,
-      shortBio: portfolio.shortBio,
+      thumbnail: portfolio?.thumbnail ?? null,
+      displayName: portfolio?.displayName ?? null,
+      shortBio: portfolio?.shortBio ?? null,
     });
   } catch (error) {
     return next(new CustomError(400, 'Raw', 'Error', null, error));
