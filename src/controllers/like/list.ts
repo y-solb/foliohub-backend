@@ -70,13 +70,14 @@ export const listLike = async (req: Request, res: Response, next: NextFunction) 
       })
     );
 
+    const lastPage = Math.ceil(total / perPage);
     return res.json({
       data: portfolioList,
       meta: {
         total,
         currentPage,
-        lastPage: Math.ceil(total / perPage),
-        hasNextPage: Math.ceil(total / perPage) === currentPage ? false : true,
+        lastPage,
+        hasNextPage: total > 0 && currentPage < lastPage,
       },
     });
   } catch (error) {
