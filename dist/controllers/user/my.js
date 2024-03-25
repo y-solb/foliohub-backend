@@ -41,6 +41,9 @@ const my = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
         if (!portfolio) {
             return next(new customError_1.CustomError(400, 'General', '해당 portfolio가 존재하지 않습니다.'));
         }
+        if (!portfolio.jobCategoryCode) {
+            return res.json(Object.assign(Object.assign(Object.assign({}, user), portfolio), { job: null, jobCode: null }));
+        }
         const JobCategoryRepository = data_source_1.AppDataSource.getRepository(JobCategory_1.JobCategory);
         const jobCategory = yield JobCategoryRepository.findOne({
             where: {

@@ -66,13 +66,14 @@ const listLike = (req, res, next) => __awaiter(void 0, void 0, void 0, function*
                 userId,
             };
         })));
+        const lastPage = Math.ceil(total / perPage);
         return res.json({
             data: portfolioList,
             meta: {
                 total,
                 currentPage,
-                lastPage: Math.ceil(total / perPage),
-                hasNextPage: Math.ceil(total / perPage) === currentPage ? false : true,
+                lastPage,
+                hasNextPage: total > 0 && currentPage < lastPage,
             },
         });
     }

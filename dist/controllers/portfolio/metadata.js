@@ -15,6 +15,7 @@ const data_source_1 = require("../../data-source");
 const User_1 = require("../../entities/User");
 const Portfolio_1 = require("../../entities/Portfolio");
 const metadataPortfolio = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    var _a, _b, _c;
     const { username } = req.query;
     if (typeof username !== 'string')
         return next(new customError_1.CustomError(400, 'General', 'username이 string 타입이 아닙니다.'));
@@ -36,13 +37,10 @@ const metadataPortfolio = (req, res, next) => __awaiter(void 0, void 0, void 0, 
             },
             select: ['thumbnail', 'displayName', 'shortBio'],
         });
-        if (!portfolio) {
-            return next(new customError_1.CustomError(400, 'General', '해당 portfolio가 존재하지 않습니다.'));
-        }
         return res.json({
-            thumbnail: portfolio.thumbnail,
-            displayName: portfolio.displayName,
-            shortBio: portfolio.shortBio,
+            thumbnail: (_a = portfolio === null || portfolio === void 0 ? void 0 : portfolio.thumbnail) !== null && _a !== void 0 ? _a : null,
+            displayName: (_b = portfolio === null || portfolio === void 0 ? void 0 : portfolio.displayName) !== null && _b !== void 0 ? _b : null,
+            shortBio: (_c = portfolio === null || portfolio === void 0 ? void 0 : portfolio.shortBio) !== null && _c !== void 0 ? _c : null,
         });
     }
     catch (error) {
