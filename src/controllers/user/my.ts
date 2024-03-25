@@ -34,6 +34,14 @@ export const my = async (req: Request, res: Response, next: NextFunction) => {
     if (!portfolio) {
       return next(new CustomError(400, 'General', '해당 portfolio가 존재하지 않습니다.'));
     }
+    if (!portfolio.jobCategoryCode) {
+      return res.json({
+        ...user,
+        ...portfolio,
+        job: null,
+        jobCode: null,
+      });
+    }
     const JobCategoryRepository = AppDataSource.getRepository(JobCategory);
     const jobCategory = await JobCategoryRepository.findOne({
       where: {
@@ -41,7 +49,6 @@ export const my = async (req: Request, res: Response, next: NextFunction) => {
       },
       select: ['code', 'name'],
     });
-
     return res.json({ ...user, ...portfolio, job: jobCategory?.name, jobCode: jobCategory?.code });
   } catch (error) {
     return next(new CustomError(400, 'Raw', 'Error', null, error));
