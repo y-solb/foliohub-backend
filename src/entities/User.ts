@@ -52,7 +52,7 @@ export class User {
       },
       {
         subject: 'accessToken',
-        expiresIn: '2m',
+        expiresIn: '1h',
       }
     );
 

@@ -30,7 +30,7 @@ export const refresh = async (req: Request, res: Response, next: NextFunction) =
       },
       {
         subject: 'access_token',
-        expiresIn: '2m',
+        expiresIn: '1h',
       }
     );
 
