@@ -12,10 +12,10 @@ import { SocialLink } from '../../entities/SocialLink';
  */
 export const register = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const { username } = req.body;
+    const { username, displayName } = req.body;
     const { registerToken } = req.cookies;
-    if (!username) {
-      return next(new CustomError(400, 'Validation', '해당 username값이 존재하지 않습니다.'));
+    if (!username || !displayName) {
+      return next(new CustomError(400, 'Validation', '해당 이름 또는 ID값이 존재하지 않습니다.'));
     }
     if (!registerToken) {
       return next(new CustomError(400, 'General', '회원가입을 처음부터 다시 시도해 주세요.'));
@@ -27,7 +27,7 @@ export const register = async (req: Request, res: Response, next: NextFunction) 
       },
     });
     if (existingUsername) {
-      return next(new CustomError(400, 'General', '해당 username을 사용하는 사용자가 존재합니다.'));
+      return next(new CustomError(400, 'General', '해당 ID을 사용하는 사용자가 존재합니다.'));
     }
 
     const { email, provider, providerId } = decodeToken(registerToken) as {
@@ -45,6 +45,7 @@ export const register = async (req: Request, res: Response, next: NextFunction) 
 
     const portfolio = new Portfolio();
     portfolio.userId = user.id;
+    portfolio.displayName = displayName;
     await AppDataSource.getRepository(Portfolio).save(portfolio);
 
     const socialLink = new SocialLink();
