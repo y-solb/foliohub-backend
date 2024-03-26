@@ -17,4 +17,6 @@ COPY . .
 
 # EXPOSE 3001
 
-CMD ["npm", "run", "start:production"]
+# CMD ["npm", "run", "start:production"]
+# CMD ["npm", "run", "dev"]
+CMD ["pm2", "start", "ecosystem.config.js"]

@@ -2,7 +2,7 @@ module.exports = {
   apps: [
     {
       name: 'foliohub-backend',
-      script: 'npm run start:prod',
+      script: 'npm run start:production',
     },
   ],
 };
