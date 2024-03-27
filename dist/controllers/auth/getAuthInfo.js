@@ -13,6 +13,7 @@ exports.getAuthInfo = void 0;
 const customError_1 = require("../../libs/customError");
 const data_source_1 = require("../../data-source");
 const User_1 = require("../../entities/User");
+const utils_1 = require("../../libs/utils");
 const getAuthInfo = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         if (req.user === null)
@@ -28,7 +29,11 @@ const getAuthInfo = (req, res, next) => __awaiter(void 0, void 0, void 0, functi
         if (!user)
             return next(new customError_1.CustomError(401, 'Unauthorized', '해당 user가 존재하지 않습니다.'));
         const { portfolio, id, username } = user;
-        return res.json({ id, username, thumbnail: portfolio.thumbnail });
+        return res.json({
+            id,
+            username,
+            thumbnail: portfolio.thumbnail ? (0, utils_1.prependCloudinaryBaseUrl)(portfolio.thumbnail) : null,
+        });
     }
     catch (error) {
         return next(new customError_1.CustomError(400, 'Raw', 'Error', null, error));

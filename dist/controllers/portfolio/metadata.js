@@ -14,8 +14,9 @@ const customError_1 = require("../../libs/customError");
 const data_source_1 = require("../../data-source");
 const User_1 = require("../../entities/User");
 const Portfolio_1 = require("../../entities/Portfolio");
+const utils_1 = require("../../libs/utils");
 const metadataPortfolio = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    var _a, _b, _c;
+    var _a, _b;
     const { username } = req.query;
     if (typeof username !== 'string')
         return next(new customError_1.CustomError(400, 'General', 'username이 string 타입이 아닙니다.'));
@@ -38,9 +39,9 @@ const metadataPortfolio = (req, res, next) => __awaiter(void 0, void 0, void 0, 
             select: ['thumbnail', 'displayName', 'shortBio'],
         });
         return res.json({
-            thumbnail: (_a = portfolio === null || portfolio === void 0 ? void 0 : portfolio.thumbnail) !== null && _a !== void 0 ? _a : null,
-            displayName: (_b = portfolio === null || portfolio === void 0 ? void 0 : portfolio.displayName) !== null && _b !== void 0 ? _b : null,
-            shortBio: (_c = portfolio === null || portfolio === void 0 ? void 0 : portfolio.shortBio) !== null && _c !== void 0 ? _c : null,
+            thumbnail: (portfolio === null || portfolio === void 0 ? void 0 : portfolio.thumbnail) ? (0, utils_1.prependCloudinaryBaseUrl)(portfolio.thumbnail) : null,
+            displayName: (_a = portfolio === null || portfolio === void 0 ? void 0 : portfolio.displayName) !== null && _a !== void 0 ? _a : null,
+            shortBio: (_b = portfolio === null || portfolio === void 0 ? void 0 : portfolio.shortBio) !== null && _b !== void 0 ? _b : null,
         });
     }
     catch (error) {

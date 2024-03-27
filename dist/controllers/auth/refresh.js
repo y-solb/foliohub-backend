@@ -38,7 +38,7 @@ const refresh = (req, res, next) => __awaiter(void 0, void 0, void 0, function* 
             userId: authToken.userId,
         }, {
             subject: 'access_token',
-            expiresIn: '2m',
+            expiresIn: '1h',
         });
         (0, token_1.setAccessTokenCookie)(res, accessToken);
         res.json('success');

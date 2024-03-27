@@ -15,6 +15,7 @@ const data_source_1 = require("../../data-source");
 const Portfolio_1 = require("../../entities/Portfolio");
 const Asset_1 = require("../../entities/Asset");
 const SocialLink_1 = require("../../entities/SocialLink");
+const utils_1 = require("../../libs/utils");
 const editPortFolio = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     if (!req.user) {
         return next(new customError_1.CustomError(401, 'Unauthorized', '해당 api에 접근 권한이 없습니다.'));
@@ -36,7 +37,7 @@ const editPortFolio = (req, res, next) => __awaiter(void 0, void 0, void 0, func
         }
         portfolio.displayName = displayName;
         portfolio.shortBio = shortBio;
-        portfolio.thumbnail = thumbnail;
+        portfolio.thumbnail = thumbnail ? (0, utils_1.extractImagePath)(thumbnail) : '';
         portfolio.layout = layout;
         yield portfolioRepository.save(portfolio);
         const socialLinkRepository = data_source_1.AppDataSource.getRepository(SocialLink_1.SocialLink);
@@ -76,7 +77,7 @@ const editPortFolio = (req, res, next) => __awaiter(void 0, void 0, void 0, func
                 }
                 else if (asset.type === 'image') {
                     existingAsset.link = asset.value.link;
-                    existingAsset.imageUrl = asset.value.imageUrl;
+                    existingAsset.imageUrl = (0, utils_1.extractImagePath)(asset.value.imageUrl);
                     existingAsset.pos = asset.value.pos;
                 }
                 else if (asset.type === 'content') {
@@ -114,7 +115,7 @@ const editPortFolio = (req, res, next) => __awaiter(void 0, void 0, void 0, func
                 }
                 else if (asset.type === 'image') {
                     newAsset.link = asset.value.link;
-                    newAsset.imageUrl = asset.value.imageUrl;
+                    newAsset.imageUrl = (0, utils_1.extractImagePath)(asset.value.imageUrl);
                 }
                 else if (asset.type === 'content') {
                     newAsset.content = asset.value.content;

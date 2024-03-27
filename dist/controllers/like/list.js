@@ -15,6 +15,7 @@ const data_source_1 = require("../../data-source");
 const LikePortfolio_1 = require("../../entities/LikePortfolio");
 const JobCategory_1 = require("../../entities/JobCategory");
 const User_1 = require("../../entities/User");
+const utils_1 = require("../../libs/utils");
 const listLike = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     if (!req.user) {
         return next(new customError_1.CustomError(401, 'Unauthorized', '해당 api에 접근 권한이 없습니다.'));
@@ -61,7 +62,7 @@ const listLike = (req, res, next) => __awaiter(void 0, void 0, void 0, function*
                 id,
                 displayName,
                 shortBio,
-                thumbnail,
+                thumbnail: thumbnail ? (0, utils_1.prependCloudinaryBaseUrl)(thumbnail) : null,
                 likeCount,
                 userId,
             };

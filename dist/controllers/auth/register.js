@@ -22,10 +22,10 @@ const SocialLink_1 = require("../../entities/SocialLink");
  */
 const register = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const { username } = req.body;
+        const { username, displayName } = req.body;
         const { registerToken } = req.cookies;
-        if (!username) {
-            return next(new customError_1.CustomError(400, 'Validation', '해당 username값이 존재하지 않습니다.'));
+        if (!username || !displayName) {
+            return next(new customError_1.CustomError(400, 'Validation', '해당 이름 또는 ID값이 존재하지 않습니다.'));
         }
         if (!registerToken) {
             return next(new customError_1.CustomError(400, 'General', '회원가입을 처음부터 다시 시도해 주세요.'));
@@ -37,7 +37,7 @@ const register = (req, res, next) => __awaiter(void 0, void 0, void 0, function*
             },
         });
         if (existingUsername) {
-            return next(new customError_1.CustomError(400, 'General', '해당 username을 사용하는 사용자가 존재합니다.'));
+            return next(new customError_1.CustomError(400, 'General', '해당 ID을 사용하는 사용자가 존재합니다.'));
         }
         const { email, provider, providerId } = (0, token_1.decodeToken)(registerToken);
         const user = new User_1.User();
@@ -48,6 +48,7 @@ const register = (req, res, next) => __awaiter(void 0, void 0, void 0, function*
         yield userRepository.save(user);
         const portfolio = new Portfolio_1.Portfolio();
         portfolio.userId = user.id;
+        portfolio.displayName = displayName;
         yield data_source_1.AppDataSource.getRepository(Portfolio_1.Portfolio).save(portfolio);
         const socialLink = new SocialLink_1.SocialLink();
         socialLink.userId = user.id;

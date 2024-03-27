@@ -35,7 +35,7 @@ let User = class User {
                 userId: this.id,
             }, {
                 subject: 'accessToken',
-                expiresIn: '2m',
+                expiresIn: '1h',
             });
             const refreshToken = (0, token_1.generateToken)({}, {
                 subject: 'refreshToken',

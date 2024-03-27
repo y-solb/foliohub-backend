@@ -17,6 +17,7 @@ const Asset_1 = require("../../entities/Asset");
 const User_1 = require("../../entities/User");
 const LikePortfolio_1 = require("../../entities/LikePortfolio");
 const SocialLink_1 = require("../../entities/SocialLink");
+const utils_1 = require("../../libs/utils");
 const getPortFolio = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const { username } = req.params;
     try {
@@ -80,7 +81,11 @@ const getPortFolio = (req, res, next) => __awaiter(void 0, void 0, void 0, funct
                 return {
                     id: asset.id,
                     type: asset.type,
-                    value: { imageUrl: asset.imageUrl, link: asset.link, pos: asset.pos },
+                    value: {
+                        imageUrl: (0, utils_1.prependCloudinaryBaseUrl)(asset.imageUrl),
+                        link: asset.link,
+                        pos: asset.pos,
+                    },
                 };
             }
             else if (asset.type === 'link') {
@@ -91,7 +96,7 @@ const getPortFolio = (req, res, next) => __awaiter(void 0, void 0, void 0, funct
                 };
             }
         });
-        return res.json(Object.assign(Object.assign({ username: user.username }, portfolio), { isLike, socialLink: {
+        return res.json(Object.assign(Object.assign({}, portfolio), { username: user.username, thumbnail: portfolio.thumbnail ? (0, utils_1.prependCloudinaryBaseUrl)(portfolio.thumbnail) : null, isLike, socialLink: {
                 blogLink: socialLink === null || socialLink === void 0 ? void 0 : socialLink.blogLink,
                 linkedinLink: socialLink === null || socialLink === void 0 ? void 0 : socialLink.linkedinLink,
                 githubLink: socialLink === null || socialLink === void 0 ? void 0 : socialLink.githubLink,

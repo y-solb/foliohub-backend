@@ -24,6 +24,7 @@ exports.listPortFolio = void 0;
 const customError_1 = require("../../libs/customError");
 const data_source_1 = require("../../data-source");
 const Portfolio_1 = require("../../entities/Portfolio");
+const utils_1 = require("../../libs/utils");
 const listPortFolio = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const currentPage = Number(req.query.page) || 0;
     const perPage = Number(req.query.count) || 10;
@@ -41,8 +42,8 @@ const listPortFolio = (req, res, next) => __awaiter(void 0, void 0, void 0, func
         const lastPage = Math.ceil(total / perPage);
         return res.json({
             data: portfolios.map((portfolio) => {
-                const { user, jobCategory } = portfolio, rest = __rest(portfolio, ["user", "jobCategory"]);
-                return Object.assign({ username: user.username, userJob: jobCategory ? jobCategory.name : null }, rest);
+                const { user, jobCategory, thumbnail } = portfolio, rest = __rest(portfolio, ["user", "jobCategory", "thumbnail"]);
+                return Object.assign(Object.assign({}, rest), { username: user.username, thumbnail: thumbnail ? (0, utils_1.prependCloudinaryBaseUrl)(thumbnail) : null, userJob: jobCategory ? jobCategory.name : null });
             }),
             meta: {
                 total,

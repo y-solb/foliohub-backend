@@ -15,6 +15,7 @@ const customError_1 = require("../../libs/customError");
 const data_source_1 = require("../../data-source");
 const User_1 = require("../../entities/User");
 const Portfolio_1 = require("../../entities/Portfolio");
+const utils_1 = require("../../libs/utils");
 const my = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     if (!req.user) {
         return next(new customError_1.CustomError(401, 'Unauthorized', '해당 api에 접근 권한이 없습니다.'));
@@ -42,7 +43,7 @@ const my = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
             return next(new customError_1.CustomError(400, 'General', '해당 portfolio가 존재하지 않습니다.'));
         }
         if (!portfolio.jobCategoryCode) {
-            return res.json(Object.assign(Object.assign(Object.assign({}, user), portfolio), { job: null, jobCode: null }));
+            return res.json(Object.assign(Object.assign(Object.assign({}, user), portfolio), { thumbnail: portfolio.thumbnail ? (0, utils_1.prependCloudinaryBaseUrl)(portfolio.thumbnail) : null, job: null, jobCode: null }));
         }
         const JobCategoryRepository = data_source_1.AppDataSource.getRepository(JobCategory_1.JobCategory);
         const jobCategory = yield JobCategoryRepository.findOne({
