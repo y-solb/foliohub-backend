@@ -51,7 +51,13 @@ export const my = async (req: Request, res: Response, next: NextFunction) => {
       },
       select: ['code', 'name'],
     });
-    return res.json({ ...user, ...portfolio, job: jobCategory?.name, jobCode: jobCategory?.code });
+    return res.json({
+      ...user,
+      ...portfolio,
+      thumbnail: portfolio.thumbnail ? prependCloudinaryBaseUrl(portfolio.thumbnail) : null,
+      job: jobCategory?.name,
+      jobCode: jobCategory?.code,
+    });
   } catch (error) {
     return next(new CustomError(400, 'Raw', 'Error', null, error));
   }
