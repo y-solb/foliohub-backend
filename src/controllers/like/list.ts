@@ -4,6 +4,7 @@ import { AppDataSource } from '../../data-source';
 import { LikePortfolio } from '../../entities/LikePortfolio';
 import { JobCategory } from '../../entities/JobCategory';
 import { User } from '../../entities/User';
+import { prependCloudinaryBaseUrl } from '../../libs/utils';
 
 export const listLike = async (req: Request, res: Response, next: NextFunction) => {
   if (!req.user) {
@@ -63,7 +64,7 @@ export const listLike = async (req: Request, res: Response, next: NextFunction) 
           id,
           displayName,
           shortBio,
-          thumbnail,
+          thumbnail: thumbnail ? prependCloudinaryBaseUrl(thumbnail) : null,
           likeCount,
           userId,
         };

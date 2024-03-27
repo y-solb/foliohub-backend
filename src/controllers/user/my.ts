@@ -4,6 +4,7 @@ import { CustomError } from '../../libs/customError';
 import { AppDataSource } from '../../data-source';
 import { User } from '../../entities/User';
 import { Portfolio } from '../../entities/Portfolio';
+import { prependCloudinaryBaseUrl } from '../../libs/utils';
 
 export const my = async (req: Request, res: Response, next: NextFunction) => {
   if (!req.user) {
@@ -38,6 +39,7 @@ export const my = async (req: Request, res: Response, next: NextFunction) => {
       return res.json({
         ...user,
         ...portfolio,
+        thumbnail: portfolio.thumbnail ? prependCloudinaryBaseUrl(portfolio.thumbnail) : null,
         job: null,
         jobCode: null,
       });

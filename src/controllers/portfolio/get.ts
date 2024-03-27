@@ -6,6 +6,7 @@ import { Asset } from '../../entities/Asset';
 import { User } from '../../entities/User';
 import { LikePortfolio } from '../../entities/LikePortfolio';
 import { SocialLink } from '../../entities/SocialLink';
+import { prependCloudinaryBaseUrl } from '../../libs/utils';
 
 export const getPortFolio = async (req: Request, res: Response, next: NextFunction) => {
   const { username } = req.params;
@@ -73,7 +74,11 @@ export const getPortFolio = async (req: Request, res: Response, next: NextFuncti
         return {
           id: asset.id,
           type: asset.type,
-          value: { imageUrl: asset.imageUrl, link: asset.link, pos: asset.pos },
+          value: {
+            imageUrl: prependCloudinaryBaseUrl(asset.imageUrl),
+            link: asset.link,
+            pos: asset.pos,
+          },
         };
       } else if (asset.type === 'link') {
         return {
@@ -85,8 +90,9 @@ export const getPortFolio = async (req: Request, res: Response, next: NextFuncti
     });
 
     return res.json({
-      username: user.username,
       ...portfolio,
+      username: user.username,
+      thumbnail: portfolio.thumbnail ? prependCloudinaryBaseUrl(portfolio.thumbnail) : null,
       isLike,
       socialLink: {
         blogLink: socialLink?.blogLink,

@@ -4,6 +4,7 @@ import { AppDataSource } from '../../data-source';
 import { Portfolio } from '../../entities/Portfolio';
 import { Asset } from '../../entities/Asset';
 import { SocialLink } from '../../entities/SocialLink';
+import { extractImagePath } from '../../libs/utils';
 
 export const editPortFolio = async (req: Request, res: Response, next: NextFunction) => {
   if (!req.user) {
@@ -45,7 +46,7 @@ export const editPortFolio = async (req: Request, res: Response, next: NextFunct
 
     portfolio.displayName = displayName;
     portfolio.shortBio = shortBio;
-    portfolio.thumbnail = thumbnail;
+    portfolio.thumbnail = thumbnail ? extractImagePath(thumbnail) : '';
     portfolio.layout = layout;
     await portfolioRepository.save(portfolio);
 
@@ -88,7 +89,7 @@ export const editPortFolio = async (req: Request, res: Response, next: NextFunct
           existingAsset.link = asset.value.link;
         } else if (asset.type === 'image') {
           existingAsset.link = asset.value.link;
-          existingAsset.imageUrl = asset.value.imageUrl;
+          existingAsset.imageUrl = extractImagePath(asset.value.imageUrl);
           existingAsset.pos = asset.value.pos;
         } else if (asset.type === 'content') {
           existingAsset.content = asset.value.content;
@@ -126,7 +127,7 @@ export const editPortFolio = async (req: Request, res: Response, next: NextFunct
           newAsset.link = asset.value.link;
         } else if (asset.type === 'image') {
           newAsset.link = asset.value.link;
-          newAsset.imageUrl = asset.value.imageUrl;
+          newAsset.imageUrl = extractImagePath(asset.value.imageUrl);
         } else if (asset.type === 'content') {
           newAsset.content = asset.value.content;
         }

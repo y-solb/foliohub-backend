@@ -3,6 +3,7 @@ import { CustomError } from '../../libs/customError';
 import { AppDataSource } from '../../data-source';
 import { User } from '../../entities/User';
 import { Portfolio } from '../../entities/Portfolio';
+import { prependCloudinaryBaseUrl } from '../../libs/utils';
 
 export const metadataPortfolio = async (req: Request, res: Response, next: NextFunction) => {
   const { username } = req.query;
@@ -30,7 +31,7 @@ export const metadataPortfolio = async (req: Request, res: Response, next: NextF
     });
 
     return res.json({
-      thumbnail: portfolio?.thumbnail ?? null,
+      thumbnail: portfolio?.thumbnail ? prependCloudinaryBaseUrl(portfolio.thumbnail) : null,
       displayName: portfolio?.displayName ?? null,
       shortBio: portfolio?.shortBio ?? null,
     });

@@ -2,6 +2,7 @@ import { Request, Response, NextFunction } from 'express';
 import { CustomError } from '../../libs/customError';
 import { AppDataSource } from '../../data-source';
 import { Portfolio } from '../../entities/Portfolio';
+import { prependCloudinaryBaseUrl } from '../../libs/utils';
 
 export const listPortFolio = async (req: Request, res: Response, next: NextFunction) => {
   const currentPage: number = Number(req.query.page) || 0;
@@ -28,11 +29,12 @@ export const listPortFolio = async (req: Request, res: Response, next: NextFunct
     const lastPage = Math.ceil(total / perPage);
     return res.json({
       data: portfolios.map((portfolio) => {
-        const { user, jobCategory, ...rest } = portfolio;
+        const { user, jobCategory, thumbnail, ...rest } = portfolio;
         return {
-          username: user.username,
-          userJob: jobCategory ? jobCategory.name : null,
           ...rest,
+          username: user.username,
+          thumbnail: thumbnail ? prependCloudinaryBaseUrl(thumbnail) : null,
+          userJob: jobCategory ? jobCategory.name : null,
         };
       }),
       meta: {

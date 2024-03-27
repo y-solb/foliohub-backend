@@ -2,6 +2,7 @@ import { NextFunction, Request, Response } from 'express';
 import { CustomError } from '../../libs/customError';
 import { AppDataSource } from '../../data-source';
 import { User } from '../../entities/User';
+import { prependCloudinaryBaseUrl } from '../../libs/utils';
 
 export const getAuthInfo = async (req: Request, res: Response, next: NextFunction) => {
   try {
@@ -18,7 +19,11 @@ export const getAuthInfo = async (req: Request, res: Response, next: NextFunctio
     if (!user) return next(new CustomError(401, 'Unauthorized', '해당 user가 존재하지 않습니다.'));
     const { portfolio, id, username } = user;
 
-    return res.json({ id, username, thumbnail: portfolio.thumbnail });
+    return res.json({
+      id,
+      username,
+      thumbnail: portfolio.thumbnail ? prependCloudinaryBaseUrl(portfolio.thumbnail) : null,
+    });
   } catch (error) {
     return next(new CustomError(400, 'Raw', 'Error', null, error));
   }
