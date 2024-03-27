@@ -52,7 +52,7 @@ const my = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
             },
             select: ['code', 'name'],
         });
-        return res.json(Object.assign(Object.assign(Object.assign({}, user), portfolio), { job: jobCategory === null || jobCategory === void 0 ? void 0 : jobCategory.name, jobCode: jobCategory === null || jobCategory === void 0 ? void 0 : jobCategory.code }));
+        return res.json(Object.assign(Object.assign(Object.assign({}, user), portfolio), { thumbnail: portfolio.thumbnail ? (0, utils_1.prependCloudinaryBaseUrl)(portfolio.thumbnail) : null, job: jobCategory === null || jobCategory === void 0 ? void 0 : jobCategory.name, jobCode: jobCategory === null || jobCategory === void 0 ? void 0 : jobCategory.code }));
     }
     catch (error) {
         return next(new customError_1.CustomError(400, 'Raw', 'Error', null, error));
