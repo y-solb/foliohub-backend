@@ -2,11 +2,10 @@ FROM node:16-alpine
 
 WORKDIR /app
 RUN mkdir -p uploads
-#COPY package*.json ./
+
 # COPY ./package*.json .
 COPY package*.json ./
 RUN npm install
-
 
 COPY . .
 
@@ -18,6 +17,6 @@ COPY . .
 
 # EXPOSE 3001
 
-CMD ["npm", "run", "start:production"]
+# CMD ["npm", "run", "start:production"]
 # CMD ["npm", "run", "dev"]
-# CMD ["pm2", "start", "ecosystem.config.js"]
+CMD ["pm2", "start", "ecosystem.config.js"]
