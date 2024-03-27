@@ -10,7 +10,7 @@ RUN npm install
 
 COPY . .
 
-RUN npm install pm2 -g
+# RUN npm install pm2 -g
 # RUN npm install ts-node -g 
 # RUN pm2 install typescript
 
