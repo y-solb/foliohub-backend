@@ -52,7 +52,7 @@ export const getPortFolio = async (req: Request, res: Response, next: NextFuncti
     const assetRepository = AppDataSource.getRepository(Asset);
     const assets = await assetRepository.find({
       where: {
-        userId: user.id,
+        portfolioId: portfolio.id,
         status: true,
       },
     });

@@ -8,7 +8,6 @@ import {
   JoinColumn,
 } from 'typeorm';
 import { Portfolio } from './Portfolio';
-import { User } from './User';
 
 @Entity()
 export class Asset {
@@ -40,14 +39,7 @@ export class Asset {
   status!: boolean;
 
   @Column('uuid')
-  userId!: string;
-
-  @Column('uuid')
   portfolioId!: string;
-
-  @ManyToOne(() => User, { onDelete: 'CASCADE' })
-  @JoinColumn({ name: 'userId' })
-  user!: User;
 
   @ManyToOne(() => Portfolio, (portfolio) => portfolio.assets, { onDelete: 'CASCADE' })
   @JoinColumn({ name: 'portfolioId' })
