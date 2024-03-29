@@ -58,7 +58,7 @@ const getPortFolio = (req, res, next) => __awaiter(void 0, void 0, void 0, funct
         const assetRepository = data_source_1.AppDataSource.getRepository(Asset_1.Asset);
         const assets = yield assetRepository.find({
             where: {
-                userId: user.id,
+                portfolioId: portfolio.id,
                 status: true,
             },
         });

@@ -104,7 +104,6 @@ const editPortFolio = (req, res, next) => __awaiter(void 0, void 0, void 0, func
             if (asset.command === 'save') {
                 const newAsset = new Asset_1.Asset();
                 newAsset.layoutId = asset.id;
-                newAsset.userId = req.user.id;
                 newAsset.portfolioId = portfolio.id;
                 newAsset.type = asset.type;
                 if (asset.type === 'github') {
