@@ -40,6 +40,14 @@ __decorate([
     __metadata("design:type", String)
 ], Asset.prototype, "content", void 0);
 __decorate([
+    (0, typeorm_1.Column)({ length: 255, nullable: true }),
+    __metadata("design:type", String)
+], Asset.prototype, "title", void 0);
+__decorate([
+    (0, typeorm_1.Column)({ length: 255, nullable: true }),
+    __metadata("design:type", String)
+], Asset.prototype, "description", void 0);
+__decorate([
     (0, typeorm_1.Column)('uuid'),
     __metadata("design:type", String)
 ], Asset.prototype, "layoutId", void 0);

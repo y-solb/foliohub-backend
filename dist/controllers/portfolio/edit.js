@@ -83,6 +83,14 @@ const editPortFolio = (req, res, next) => __awaiter(void 0, void 0, void 0, func
                 else if (asset.type === 'content') {
                     existingAsset.content = asset.value.content;
                 }
+                else if (asset.type === 'card') {
+                    existingAsset.link = asset.value.link;
+                    existingAsset.imageUrl = asset.value.imageUrl
+                        ? (0, utils_1.extractImagePath)(asset.value.imageUrl)
+                        : '';
+                    existingAsset.title = asset.value.title;
+                    existingAsset.description = asset.value.description;
+                }
                 yield assetRepository.save(existingAsset);
                 continue;
             }
@@ -118,6 +126,12 @@ const editPortFolio = (req, res, next) => __awaiter(void 0, void 0, void 0, func
                 }
                 else if (asset.type === 'content') {
                     newAsset.content = asset.value.content;
+                }
+                else if (asset.type === 'card') {
+                    newAsset.link = asset.value.link;
+                    newAsset.imageUrl = asset.value.imageUrl ? (0, utils_1.extractImagePath)(asset.value.imageUrl) : '';
+                    newAsset.title = asset.value.title;
+                    newAsset.description = asset.value.description;
                 }
                 yield assetRepository.save(newAsset);
             }

@@ -23,7 +23,7 @@ function setTokenCookie(res, tokens) {
     const { accessToken, refreshToken } = tokens;
     res.cookie('accessToken', accessToken, {
         path: '/',
-        maxAge: 1000 * 60 * 2,
+        maxAge: 1000 * 60 * 60, // 1시간
         httpOnly: true,
         sameSite: 'strict',
         secure: true,
@@ -40,7 +40,7 @@ exports.setTokenCookie = setTokenCookie;
 function setAccessTokenCookie(res, accessToken) {
     res.cookie('accessToken', accessToken, {
         path: '/',
-        maxAge: 1000 * 60 * 2,
+        maxAge: 1000 * 60 * 60, // 1시간
         httpOnly: true,
         sameSite: 'strict',
         secure: true,

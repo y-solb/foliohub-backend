@@ -20,7 +20,13 @@ exports.default = (req, res, next) => __awaiter(void 0, void 0, void 0, function
             req.user = null;
             return next();
         }
-        if (!accessToken && refreshToken) {
+        if (!refreshToken) {
+            res.clearCookie('accessToken');
+            res.clearCookie('refreshToken');
+            res.json('logout');
+            return;
+        }
+        if (!accessToken) {
             return res
                 .status(401)
                 .json({ error: 'Unauthorized', message: '유효하지 않은 accessToken입니다.' });

@@ -95,6 +95,18 @@ const getPortFolio = (req, res, next) => __awaiter(void 0, void 0, void 0, funct
                     value: { link: asset.link },
                 };
             }
+            else if (asset.type === 'card') {
+                return {
+                    id: asset.id,
+                    type: asset.type,
+                    value: {
+                        link: asset.link,
+                        imageUrl: asset.imageUrl ? (0, utils_1.prependCloudinaryBaseUrl)(asset.imageUrl) : null,
+                        title: asset.title,
+                        description: asset.description,
+                    },
+                };
+            }
         });
         return res.json(Object.assign(Object.assign({}, portfolio), { username: user.username, thumbnail: portfolio.thumbnail ? (0, utils_1.prependCloudinaryBaseUrl)(portfolio.thumbnail) : null, isLike, socialLink: {
                 blogLink: socialLink === null || socialLink === void 0 ? void 0 : socialLink.blogLink,
