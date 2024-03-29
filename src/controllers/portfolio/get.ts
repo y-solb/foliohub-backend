@@ -95,6 +95,7 @@ export const getPortFolio = async (req: Request, res: Response, next: NextFuncti
             imageUrl: asset.imageUrl ? prependCloudinaryBaseUrl(asset.imageUrl) : null,
             title: asset.title,
             description: asset.description,
+            pos: asset.pos,
           },
         };
       }

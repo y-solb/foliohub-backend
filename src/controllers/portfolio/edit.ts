@@ -100,6 +100,7 @@ export const editPortFolio = async (req: Request, res: Response, next: NextFunct
             : '';
           existingAsset.title = asset.value.title;
           existingAsset.description = asset.value.description;
+          existingAsset.pos = asset.value.pos;
         }
         await assetRepository.save(existingAsset);
         continue;
@@ -134,6 +135,7 @@ export const editPortFolio = async (req: Request, res: Response, next: NextFunct
         } else if (asset.type === 'image') {
           newAsset.link = asset.value.link;
           newAsset.imageUrl = extractImagePath(asset.value.imageUrl);
+          newAsset.pos = asset.value.pos;
         } else if (asset.type === 'content') {
           newAsset.content = asset.value.content;
         } else if (asset.type === 'card') {
@@ -141,6 +143,7 @@ export const editPortFolio = async (req: Request, res: Response, next: NextFunct
           newAsset.imageUrl = asset.value.imageUrl ? extractImagePath(asset.value.imageUrl) : '';
           newAsset.title = asset.value.title;
           newAsset.description = asset.value.description;
+          newAsset.pos = asset.value.pos;
         }
         await assetRepository.save(newAsset);
       }
