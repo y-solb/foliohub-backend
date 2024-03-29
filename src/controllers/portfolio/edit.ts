@@ -118,7 +118,6 @@ export const editPortFolio = async (req: Request, res: Response, next: NextFunct
       if (asset.command === 'save') {
         const newAsset = new Asset();
         newAsset.layoutId = asset.id;
-        newAsset.userId = req.user.id;
         newAsset.portfolioId = portfolio.id;
         newAsset.type = asset.type;
         if (asset.type === 'github') {

@@ -12,7 +12,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Asset = void 0;
 const typeorm_1 = require("typeorm");
 const Portfolio_1 = require("./Portfolio");
-const User_1 = require("./User");
 let Asset = class Asset {
 };
 exports.Asset = Asset;
@@ -55,16 +54,7 @@ __decorate([
 __decorate([
     (0, typeorm_1.Column)('uuid'),
     __metadata("design:type", String)
-], Asset.prototype, "userId", void 0);
-__decorate([
-    (0, typeorm_1.Column)('uuid'),
-    __metadata("design:type", String)
 ], Asset.prototype, "portfolioId", void 0);
-__decorate([
-    (0, typeorm_1.ManyToOne)(() => User_1.User, { onDelete: 'CASCADE' }),
-    (0, typeorm_1.JoinColumn)({ name: 'userId' }),
-    __metadata("design:type", User_1.User)
-], Asset.prototype, "user", void 0);
 __decorate([
     (0, typeorm_1.ManyToOne)(() => Portfolio_1.Portfolio, (portfolio) => portfolio.assets, { onDelete: 'CASCADE' }),
     (0, typeorm_1.JoinColumn)({ name: 'portfolioId' }),
