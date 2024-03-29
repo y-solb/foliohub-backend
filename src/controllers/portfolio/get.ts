@@ -86,6 +86,17 @@ export const getPortFolio = async (req: Request, res: Response, next: NextFuncti
           type: asset.type,
           value: { link: asset.link },
         };
+      } else if (asset.type === 'card') {
+        return {
+          id: asset.id,
+          type: asset.type,
+          value: {
+            link: asset.link,
+            imageUrl: asset.imageUrl ? prependCloudinaryBaseUrl(asset.imageUrl) : null,
+            title: asset.title,
+            description: asset.description,
+          },
+        };
       }
     });
 

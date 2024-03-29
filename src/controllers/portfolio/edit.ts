@@ -93,6 +93,13 @@ export const editPortFolio = async (req: Request, res: Response, next: NextFunct
           existingAsset.pos = asset.value.pos;
         } else if (asset.type === 'content') {
           existingAsset.content = asset.value.content;
+        } else if (asset.type === 'card') {
+          existingAsset.link = asset.value.link;
+          existingAsset.imageUrl = asset.value.imageUrl
+            ? extractImagePath(asset.value.imageUrl)
+            : '';
+          existingAsset.title = asset.value.title;
+          existingAsset.description = asset.value.description;
         }
         await assetRepository.save(existingAsset);
         continue;
@@ -129,6 +136,11 @@ export const editPortFolio = async (req: Request, res: Response, next: NextFunct
           newAsset.imageUrl = extractImagePath(asset.value.imageUrl);
         } else if (asset.type === 'content') {
           newAsset.content = asset.value.content;
+        } else if (asset.type === 'card') {
+          newAsset.link = asset.value.link;
+          newAsset.imageUrl = asset.value.imageUrl ? extractImagePath(asset.value.imageUrl) : '';
+          newAsset.title = asset.value.title;
+          newAsset.description = asset.value.description;
         }
         await assetRepository.save(newAsset);
       }

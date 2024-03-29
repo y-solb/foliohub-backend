@@ -29,6 +29,12 @@ export class Asset {
   @Column('text', { nullable: true })
   content!: string;
 
+  @Column({ length: 255, nullable: true })
+  title!: string;
+
+  @Column({ length: 255, nullable: true })
+  description!: string;
+
   @Column('uuid')
   layoutId!: string;
 
