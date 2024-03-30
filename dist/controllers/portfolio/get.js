@@ -104,6 +104,7 @@ const getPortFolio = (req, res, next) => __awaiter(void 0, void 0, void 0, funct
                         imageUrl: asset.imageUrl ? (0, utils_1.prependCloudinaryBaseUrl)(asset.imageUrl) : null,
                         title: asset.title,
                         description: asset.description,
+                        pos: asset.pos,
                     },
                 };
             }

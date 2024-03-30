@@ -90,6 +90,7 @@ const editPortFolio = (req, res, next) => __awaiter(void 0, void 0, void 0, func
                         : '';
                     existingAsset.title = asset.value.title;
                     existingAsset.description = asset.value.description;
+                    existingAsset.pos = asset.value.pos;
                 }
                 yield assetRepository.save(existingAsset);
                 continue;
@@ -123,6 +124,7 @@ const editPortFolio = (req, res, next) => __awaiter(void 0, void 0, void 0, func
                 else if (asset.type === 'image') {
                     newAsset.link = asset.value.link;
                     newAsset.imageUrl = (0, utils_1.extractImagePath)(asset.value.imageUrl);
+                    newAsset.pos = asset.value.pos;
                 }
                 else if (asset.type === 'content') {
                     newAsset.content = asset.value.content;
@@ -132,6 +134,7 @@ const editPortFolio = (req, res, next) => __awaiter(void 0, void 0, void 0, func
                     newAsset.imageUrl = asset.value.imageUrl ? (0, utils_1.extractImagePath)(asset.value.imageUrl) : '';
                     newAsset.title = asset.value.title;
                     newAsset.description = asset.value.description;
+                    newAsset.pos = asset.value.pos;
                 }
                 yield assetRepository.save(newAsset);
             }
