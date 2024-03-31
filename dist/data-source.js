@@ -17,10 +17,9 @@ exports.AppDataSource = new typeorm_1.DataSource({
     database: process.env.POSTGRES_DB,
     synchronize: true,
     logging: true,
-    // entities: [
-    //   process.env.NODE_ENV === 'development' ? 'src/entities/**/*.ts' : 'src/entities/**/*.ts',
-    // ],
-    entities: ['dist/entities/**/*.js'],
+    entities: [
+        process.env.NODE_ENV === 'development' ? 'src/entities/**/*.ts' : 'dist/entities/**/*.js',
+    ],
     subscribers: [],
     migrations: [],
 });
