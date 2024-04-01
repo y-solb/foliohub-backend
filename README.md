@@ -31,7 +31,7 @@
 - JWT와 cookie로 인증 구현
 - Google 소셜 로그인 기능 구현
 - AccessToken은 1시간, RefreshToken은 14일 후 만료되며 RefreshToken은 데이터베이스에 저장해 AccessToken 만료 시 cookie에 담겨진 RefreshToken을 확인하여 유효한 경우 AccessToken을 재발급
-- 클라이언트에서 받아온 이미지 파일을 multer를 사용하여 처리한 후 Cloudinary에 업로드하고 이미지 넓이를 500px로 최적화
+- 클라이언트에서 받아온 이미지 파일을 multer를 사용하여 처리한 후 Cloudinary에 업로드
 - AWS Certificate Manager를 사용하여 SSL 인증서를 발급받고, 이를 Route 53을 통해 설정한 Load Balancer에 연결하여 HTTPS를 구현
 - Docker를 활용하여 AWS EC2에 PM2로 무중단 배포
 
