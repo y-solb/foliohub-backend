@@ -67,7 +67,7 @@ export class User {
     const authToken = new AuthToken();
     authToken.userId = this.id;
     authToken.token = refreshToken;
-    authToken.expiresAt = new Date(Date.now() + 14 * 24 * 60 * 60 * 1000);
+    authToken.expiresAt = new Date(Date.now() + 1000 * 60 * 60 * 24 * 14); // 14일
     await AppDataSource.getRepository(AuthToken).save(authToken);
 
     return {
