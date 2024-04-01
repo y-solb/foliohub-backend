@@ -8,25 +8,10 @@
 
 ## 💁🏻‍♀️ 소개
 
-<!-- ![main](https://github.com/y-solb/foliohub-backend/assets/59462108/151ef787-a90c-4bff-b4f2-0b5154a1da25)
-![list](https://github.com/y-solb/foliohub-backend/assets/59462108/6de4b2da-1b20-4496-a819-c2c700a72919)
-![mypage](https://github.com/y-solb/foliohub-backend/assets/59462108/035fc295-d992-4004-9096-78ef3877c60e)
-![asset](https://github.com/y-solb/foliohub-backend/assets/59462108/a696f094-adad-4982-9c2a-d6965d1cb425) -->
-
-![main](https://github.com/y-solb/foliohub-backend/assets/59462108/9c11bbb9-7770-42c4-a170-c031f84f55bb)
-![list](https://github.com/y-solb/foliohub-backend/assets/59462108/ed5c21ed-e9eb-45af-9761-7228ceb72ccc)
-![mypage](https://github.com/y-solb/foliohub-backend/assets/59462108/eb2b27ea-8f33-4351-9828-60c285d4a137)
-![asset](https://github.com/y-solb/foliohub-backend/assets/59462108/49c48477-fc5c-44ef-8af0-9eb1a88dcb3a)
-
-![main](https://github.com/y-solb/foliohub-backend/assets/59462108/15339345-ad85-43bc-9825-6adef40be0aa)
-![list](https://github.com/y-solb/foliohub-backend/assets/59462108/7dbf50c5-8e2c-47e2-b8ae-9595a348a074)
-![mypage](https://github.com/y-solb/foliohub-backend/assets/59462108/b1aacf6b-5aa3-4a3c-a0a4-64e3f060fc26)
-![asset](https://github.com/y-solb/foliohub-backend/assets/59462108/fa1ab51f-7890-415a-949a-80b6e8ed2bd4)
-
-![asset](https://github.com/y-solb/foliohub-backend/assets/59462108/b0a86ad9-22f4-49a1-a90b-56042d5ebcd7)
-![list](https://github.com/y-solb/foliohub-backend/assets/59462108/99ca6a66-1e10-436f-87db-721045bbb44d)
 ![main](https://github.com/y-solb/foliohub-backend/assets/59462108/1c17f2c2-da2a-477d-b9a6-65960393bb04)
+![list](https://github.com/y-solb/foliohub-backend/assets/59462108/99ca6a66-1e10-436f-87db-721045bbb44d)
 ![mypage](https://github.com/y-solb/foliohub-backend/assets/59462108/c5d767d8-8242-4c56-b9fb-57ab19bc45e2)
+![asset](https://github.com/y-solb/foliohub-backend/assets/59462108/b0a86ad9-22f4-49a1-a90b-56042d5ebcd7)
 
 ## ⚒️ 기술 스택
 
