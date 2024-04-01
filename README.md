@@ -18,6 +18,11 @@
 ![mypage](https://github.com/y-solb/foliohub-backend/assets/59462108/eb2b27ea-8f33-4351-9828-60c285d4a137)
 ![asset](https://github.com/y-solb/foliohub-backend/assets/59462108/49c48477-fc5c-44ef-8af0-9eb1a88dcb3a)
 
+![main](https://github.com/y-solb/foliohub-backend/assets/59462108/15339345-ad85-43bc-9825-6adef40be0aa)
+![list](https://github.com/y-solb/foliohub-backend/assets/59462108/7dbf50c5-8e2c-47e2-b8ae-9595a348a074)
+![mypage](https://github.com/y-solb/foliohub-backend/assets/59462108/b1aacf6b-5aa3-4a3c-a0a4-64e3f060fc26)
+![asset](https://github.com/y-solb/foliohub-backend/assets/59462108/fa1ab51f-7890-415a-949a-80b6e8ed2bd4)
+
 ## ⚒️ 기술 스택
 
 - Language: Typescript
