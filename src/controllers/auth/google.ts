@@ -6,10 +6,7 @@ import { generateToken, setTokenCookie } from '../../libs/token';
 import { CustomError } from '../../libs/customError';
 
 const REDIRECT_PATH = '/v1/auth/callback/';
-const REDIRECT_URI =
-  process.env.NODE_ENV === 'development'
-    ? `${process.env.APP_URL}${REDIRECT_PATH}`
-    : `${process.env.APP_URL}${REDIRECT_PATH}`;
+const REDIRECT_URI = `${process.env.APP_URL}${REDIRECT_PATH}`;
 
 const generators = {
   google() {
@@ -82,7 +79,6 @@ export const googleCallback = async (req: Request, res: Response, next: NextFunc
     if (user) {
       const token = await user.generateUserToken();
       setTokenCookie(res, token);
-      // res.json({ accessToken });
       res.redirect(`${process.env.ORIGIN}`);
       return;
     }
