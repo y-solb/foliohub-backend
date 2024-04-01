@@ -35,7 +35,7 @@ const uploadImage = (req, res, next) => __awaiter(void 0, void 0, void 0, functi
         const result = yield cloudinary_1.v2.uploader.upload(file, {
             resource_type: 'image',
             folder: type,
-            width: 500,
+            // width: 600,
             crop: 'scale',
         });
         fs_1.default.unlink(req.file.path, (err) => {
