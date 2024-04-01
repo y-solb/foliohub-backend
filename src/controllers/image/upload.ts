@@ -23,7 +23,7 @@ export const uploadImage = async (req: Request, res: Response, next: NextFunctio
     const result: UploadApiResponse = await cloudinary.uploader.upload(file, {
       resource_type: 'image',
       folder: type,
-      // width: 600,
+      width: 1000,
       crop: 'scale',
     });
 
