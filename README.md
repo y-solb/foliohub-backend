@@ -27,13 +27,42 @@
 
 ## ✏️ 구현 사항
 
-- Rest API 개발 및 DB 설계
-- JWT와 cookie로 인증 구현
-- Google 소셜 로그인 기능 구현
-- AccessToken은 1시간, RefreshToken은 14일 후 만료되며 RefreshToken은 데이터베이스에 저장해 AccessToken 만료 시 cookie에 담겨진 RefreshToken을 확인하여 유효한 경우 AccessToken을 재발급
-- 클라이언트에서 받아온 이미지 파일을 multer를 사용하여 처리한 후 Cloudinary에 업로드
-- AWS Certificate Manager를 사용하여 SSL 인증서를 발급받고, 이를 Route 53을 통해 설정한 Load Balancer에 연결하여 HTTPS를 구현
-- Docker를 활용하여 AWS EC2에 PM2로 무중단 배포
+**로그인/인증**
+
+- Google 소셜 로그인을 구현하였습니다.
+- 사용자가 로그인하면 Google로부터 받은 정보를 확인하고, 기존 회원인 경우 accessToken과 refreshToken을 쿠키를 통해 발급합니다. 또한, AuthToken 테이블에 userId, refreshToken, 만료일을 저장하여 accessToken 재발급 시 이를 활용합니다.
+- 보안을 강화하기 위해 쿠키는 httpOnly, secure, sameSite 옵션을 설정했습니다.
+- accessToken은 1시간, refreshToken은 14일 뒤에 만료되며, accessToken 만료 시 refreshToken으로 재발급 받을 수 있도록 구현되었습니다. 또한, accessToken에는 userId가 포함되어 있어서 인증 middleware에서 accessToken을 decode하여 userId를 확인할 수 있습니다.
+- 로그인 후 회원가입이 필요한 경우, 회원가입 페이지로 리다이렉트합니다. 이때 사용자 정보(email, provider, providerId)를 토큰으로 생성하고 쿠키에 저장하여 회원가입 시 사용할 수 있도록 구현하였습니다.
+- 인증이 필요한 API의 경우 middleware를 거칩니다. 여기서 accessToken과 refreshToken을 확인하여, 모두 있는 경우에만 accessToken을 decode하여 사용자의 정보를 가져옵니다. 이 정보를 요청(req) 객체에 추가하여 이후의 작업에서도 사용할 수 있도록 했습니다.
+- 로그아웃 시 accessToken과 refreshToken을 쿠키에서 삭제했습니다.
+
+**이미지 업로드**
+
+- 이미지를 사용 목적에 따라 폴더를 나누기 위해 이미지 업로드 시 이미지의 타입(thumbnail, asset)을 받아와 해당 타입의 폴더 안에 저장했습니다.
+- 이미지는 multer를 사용하여 서버의 uploads 폴더에 저장되며 이후에는 Cloudinary를 통해 업로드됩니다. 이미지 최적화를 위해 넓이 1000px로 크롭하여 저장했습니다. 업로드 후에는 서버에서 업로드 된 이미지 파일을 삭제했습니다.
+- 프론트엔드 개발 환경에서는 HTTP를 사용하고 배포된 환경에서 HTTPS를 사용하기 때문에 이미지를 상대 경로로 저장했습니다.
+
+**직업 카테고리 테이블**
+
+<img src="https://github.com/y-solb/foliohub-backend/assets/59462108/2a1fd219-d9ab-45ef-9ed4-d4612dba7be0" alt="직업 카테고리 테이블" width="280">
+
+- 데이터를 구조화하여 관리하고 검색 및 필터링을 용이하게 하고자 직업을 카테고리별로 상위 카테고리(01-개발)와 하위 카테고리(01001-웹개발자)로 분류하여 테이블에 저장했습니다.
+
+**좋아요**
+
+- 좋아요를 누른 경우 LikePortfolio 테이블에 좋아요를 누른 사용자 id, 좋아요를 받은 포트폴리오의 id와 상태 값을 저장하고 Portfolio 테이블에서 해당 포트폴리오의 좋아요 수를 업데이트했습니다.
+- 좋아요를 취소하는 경우 좋아요 여부를 false로 변경하고 Portfolio 테이블에서 해당 포트폴리오의 좋아요 수를 업데이트했습니다.
+
+**CORS**
+
+- cors 미들웨어로 출처가 다른 요청을 허용하고 허용된 메서드 및 헤더를 설정했습니다. 쿠키 값을 가져오기 위해 `credentials: true` 옵션을 설정했습니다.
+
+**배포**
+
+- Docker를 활용하여 AWS EC2에 PM2로 무중단 배포를 구현했습니다.
+- AWS Certificate Manager를 사용하여 SSL 인증서를 발급받고, 이를 Route 53을 통해 설정한 Load Balancer에 연결하여 HTTPS를 구현했습니다.
+- AWS EC2에서 빌드 시 인스턴스가 중단되는 문제가 발생하여, 현재 로컬에서 프로젝트를 빌드 후 Git에 업로드하고 이를 EC2에서 실행시키고 있습니다.
 
 ## ⛳️ 실행
 
