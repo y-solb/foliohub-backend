@@ -85,8 +85,6 @@ export const editPortFolio = async (req: Request, res: Response, next: NextFunct
 
         if (asset.type === 'github') {
           existingAsset.githubId = asset.value.githubId;
-        } else if (asset.type === 'link') {
-          existingAsset.link = asset.value.link;
         } else if (asset.type === 'image') {
           existingAsset.link = asset.value.link;
           existingAsset.imageUrl = extractImagePath(asset.value.imageUrl);
@@ -125,13 +123,11 @@ export const editPortFolio = async (req: Request, res: Response, next: NextFunct
       // create asset
       if (asset.command === 'save') {
         const newAsset = new Asset();
-        newAsset.layoutId = asset.id;
+        newAsset.layoutId = asset.layoutId;
         newAsset.portfolioId = portfolio.id;
         newAsset.type = asset.type;
         if (asset.type === 'github') {
           newAsset.githubId = asset.value.githubId;
-        } else if (asset.type === 'link') {
-          newAsset.link = asset.value.link;
         } else if (asset.type === 'image') {
           newAsset.link = asset.value.link;
           newAsset.imageUrl = extractImagePath(asset.value.imageUrl);

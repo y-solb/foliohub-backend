@@ -61,18 +61,21 @@ export const getPortFolio = async (req: Request, res: Response, next: NextFuncti
       if (asset.type === 'github') {
         return {
           id: asset.id,
+          layoutId: asset.layoutId,
           type: asset.type,
           value: { githubId: asset.githubId },
         };
       } else if (asset.type === 'content') {
         return {
           id: asset.id,
+          layoutId: asset.layoutId,
           type: asset.type,
           value: { content: asset.content },
         };
       } else if (asset.type === 'image') {
         return {
           id: asset.id,
+          layoutId: asset.layoutId,
           type: asset.type,
           value: {
             imageUrl: prependCloudinaryBaseUrl(asset.imageUrl),
@@ -80,15 +83,10 @@ export const getPortFolio = async (req: Request, res: Response, next: NextFuncti
             pos: asset.pos,
           },
         };
-      } else if (asset.type === 'link') {
-        return {
-          id: asset.id,
-          type: asset.type,
-          value: { link: asset.link },
-        };
       } else if (asset.type === 'card') {
         return {
           id: asset.id,
+          layoutId: asset.layoutId,
           type: asset.type,
           value: {
             link: asset.link,

@@ -15,7 +15,7 @@ export class Asset {
   id!: string;
 
   @Column({ length: 255 })
-  type!: 'github' | 'link' | 'image' | 'content';
+  type!: 'github' | 'card' | 'image' | 'content';
 
   @Column({ length: 255, nullable: true })
   githubId!: string;
