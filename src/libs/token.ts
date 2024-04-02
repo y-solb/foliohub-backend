@@ -27,6 +27,7 @@ export function setTokenCookie(
     httpOnly: true,
     sameSite: 'strict',
     secure: true,
+    domain: process.env.DOMAIN,
   });
 
   res.cookie('refreshToken', refreshToken, {
@@ -35,6 +36,7 @@ export function setTokenCookie(
     httpOnly: true,
     sameSite: 'strict',
     secure: true,
+    domain: process.env.DOMAIN,
   });
 }
 
@@ -45,5 +47,6 @@ export function setAccessTokenCookie(res: Response, accessToken: string) {
     httpOnly: true,
     sameSite: 'strict',
     secure: true,
+    domain: process.env.DOMAIN,
   });
 }

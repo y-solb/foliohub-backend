@@ -92,6 +92,7 @@ export const googleCallback = async (req: Request, res: Response, next: NextFunc
     res.cookie('registerToken', registerToken, {
       maxAge: 1000 * 60 * 60,
       httpOnly: true,
+      domain: process.env.DOMAIN,
     });
 
     res.redirect(`${process.env.ORIGIN}/auth/register`);
