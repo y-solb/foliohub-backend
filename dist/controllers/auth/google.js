@@ -80,6 +80,7 @@ const googleCallback = (req, res, next) => __awaiter(void 0, void 0, void 0, fun
         res.cookie('registerToken', registerToken, {
             maxAge: 1000 * 60 * 60,
             httpOnly: true,
+            domain: process.env.DOMAIN,
         });
         res.redirect(`${process.env.ORIGIN}/auth/register`);
     }
