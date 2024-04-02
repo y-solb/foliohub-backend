@@ -16,9 +16,7 @@ const data_source_1 = require("../../data-source");
 const token_1 = require("../../libs/token");
 const customError_1 = require("../../libs/customError");
 const REDIRECT_PATH = '/v1/auth/callback/';
-const REDIRECT_URI = process.env.NODE_ENV === 'development'
-    ? `${process.env.APP_URL}${REDIRECT_PATH}`
-    : `${process.env.APP_URL}${REDIRECT_PATH}`;
+const REDIRECT_URI = `${process.env.APP_URL}${REDIRECT_PATH}`;
 const generators = {
     google() {
         const oauth2Client = new googleapis_1.google.auth.OAuth2(process.env.GOOGLE_CLIENT_ID, process.env.GOOGLE_CLIENT_SECRET, `${REDIRECT_URI}google`);
@@ -74,7 +72,6 @@ const googleCallback = (req, res, next) => __awaiter(void 0, void 0, void 0, fun
         if (user) {
             const token = yield user.generateUserToken();
             (0, token_1.setTokenCookie)(res, token);
-            // res.json({ accessToken });
             res.redirect(`${process.env.ORIGIN}`);
             return;
         }

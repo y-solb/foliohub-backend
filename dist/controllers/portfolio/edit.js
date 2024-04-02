@@ -72,9 +72,6 @@ const editPortFolio = (req, res, next) => __awaiter(void 0, void 0, void 0, func
                 if (asset.type === 'github') {
                     existingAsset.githubId = asset.value.githubId;
                 }
-                else if (asset.type === 'link') {
-                    existingAsset.link = asset.value.link;
-                }
                 else if (asset.type === 'image') {
                     existingAsset.link = asset.value.link;
                     existingAsset.imageUrl = (0, utils_1.extractImagePath)(asset.value.imageUrl);
@@ -112,14 +109,11 @@ const editPortFolio = (req, res, next) => __awaiter(void 0, void 0, void 0, func
             // create asset
             if (asset.command === 'save') {
                 const newAsset = new Asset_1.Asset();
-                newAsset.layoutId = asset.id;
+                newAsset.layoutId = asset.layoutId;
                 newAsset.portfolioId = portfolio.id;
                 newAsset.type = asset.type;
                 if (asset.type === 'github') {
                     newAsset.githubId = asset.value.githubId;
-                }
-                else if (asset.type === 'link') {
-                    newAsset.link = asset.value.link;
                 }
                 else if (asset.type === 'image') {
                     newAsset.link = asset.value.link;

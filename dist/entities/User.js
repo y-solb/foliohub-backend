@@ -44,7 +44,7 @@ let User = class User {
             const authToken = new AuthToken_1.default();
             authToken.userId = this.id;
             authToken.token = refreshToken;
-            authToken.expiresAt = new Date(Date.now() + 14 * 24 * 60 * 60 * 1000);
+            authToken.expiresAt = new Date(Date.now() + 1000 * 60 * 60 * 24 * 14); // 14일
             yield data_source_1.AppDataSource.getRepository(AuthToken_1.default).save(authToken);
             return {
                 accessToken,

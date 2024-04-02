@@ -66,6 +66,7 @@ const getPortFolio = (req, res, next) => __awaiter(void 0, void 0, void 0, funct
             if (asset.type === 'github') {
                 return {
                     id: asset.id,
+                    layoutId: asset.layoutId,
                     type: asset.type,
                     value: { githubId: asset.githubId },
                 };
@@ -73,6 +74,7 @@ const getPortFolio = (req, res, next) => __awaiter(void 0, void 0, void 0, funct
             else if (asset.type === 'content') {
                 return {
                     id: asset.id,
+                    layoutId: asset.layoutId,
                     type: asset.type,
                     value: { content: asset.content },
                 };
@@ -80,6 +82,7 @@ const getPortFolio = (req, res, next) => __awaiter(void 0, void 0, void 0, funct
             else if (asset.type === 'image') {
                 return {
                     id: asset.id,
+                    layoutId: asset.layoutId,
                     type: asset.type,
                     value: {
                         imageUrl: (0, utils_1.prependCloudinaryBaseUrl)(asset.imageUrl),
@@ -88,16 +91,10 @@ const getPortFolio = (req, res, next) => __awaiter(void 0, void 0, void 0, funct
                     },
                 };
             }
-            else if (asset.type === 'link') {
-                return {
-                    id: asset.id,
-                    type: asset.type,
-                    value: { link: asset.link },
-                };
-            }
             else if (asset.type === 'card') {
                 return {
                     id: asset.id,
+                    layoutId: asset.layoutId,
                     type: asset.type,
                     value: {
                         link: asset.link,
