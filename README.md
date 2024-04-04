@@ -4,15 +4,22 @@
 
 나만의 포트폴리오 만드는 서비스
 
-### [🚀 서비스 보러가기](https://www.foliohub.me)
-
 ## 💁🏻‍♀️ 소개
 
 ![main](https://github.com/y-solb/foliohub-backend/assets/59462108/1c17f2c2-da2a-477d-b9a6-65960393bb04)
 ![list](https://github.com/y-solb/foliohub-backend/assets/59462108/99ca6a66-1e10-436f-87db-721045bbb44d)
 ![mypage](https://github.com/y-solb/foliohub-backend/assets/59462108/c5d767d8-8242-4c56-b9fb-57ab19bc45e2)
 ![asset1](https://github.com/y-solb/foliohub-backend/assets/59462108/40a57eff-1e39-4279-b61c-ba59bf620642)
-![asset2](https://github.com/y-solb/foliohub-backend/assets/59462108/c28e5c89-f09c-4c5a-8e81-1d3be81ed5d6)
+![asset2](https://github.com/y-solb/foliohub-backend/assets/59462108/4fc022a4-1bcb-4c4e-aadf-3555285a8fc9)
+![experience](https://github.com/y-solb/foliohub-backend/assets/59462108/498f81af-3fd9-4cbb-8f74-d3591dda41ee)
+
+### [🚀 서비스 보러가기](https://www.foliohub.me)
+
+로그인 없이 체험 코드를 입력하고 체험해 볼 수 있어요
+
+```
+체험코드 : HelloWorld
+```
 
 ## ⚒️ 기술 스택
 
