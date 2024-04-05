@@ -18,7 +18,7 @@ const Portfolio_1 = require("../../entities/Portfolio");
 const SocialLink_1 = require("../../entities/SocialLink");
 /**
  * 회원가입
- * GET /v1/auth/register
+ * POST /v1/auth/register
  */
 const register = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {

@@ -15,11 +15,15 @@ const data_source_1 = require("../../data-source");
 const User_1 = require("../../entities/User");
 const Portfolio_1 = require("../../entities/Portfolio");
 const utils_1 = require("../../libs/utils");
+/**
+ * 포트폴리오 metadata
+ * GET /v1/portfolio/metadata
+ */
 const metadataPortfolio = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     var _a, _b;
     const { username } = req.query;
     if (typeof username !== 'string')
-        return next(new customError_1.CustomError(400, 'General', 'username이 string 타입이 아닙니다.'));
+        return next(new customError_1.CustomError(400, 'Validation', 'username이 string 타입이 아닙니다.'));
     try {
         const UserRepository = data_source_1.AppDataSource.getRepository(User_1.User);
         const user = yield UserRepository.findOne({
@@ -29,7 +33,7 @@ const metadataPortfolio = (req, res, next) => __awaiter(void 0, void 0, void 0, 
             select: ['id'],
         });
         if (!user) {
-            return next(new customError_1.CustomError(400, 'General', '해당 user가 존재하지 않습니다.'));
+            return next(new customError_1.CustomError(404, 'General', '해당 user가 존재하지 않습니다.'));
         }
         const portfolioRepository = data_source_1.AppDataSource.getRepository(Portfolio_1.Portfolio);
         const portfolio = yield portfolioRepository.findOne({

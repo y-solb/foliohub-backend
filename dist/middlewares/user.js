@@ -27,9 +27,7 @@ exports.default = (req, res, next) => __awaiter(void 0, void 0, void 0, function
             return;
         }
         if (!accessToken) {
-            return res
-                .status(401)
-                .json({ error: 'Unauthorized', message: '유효하지 않은 accessToken입니다.' });
+            return next(new customError_1.CustomError(401, 'Unauthorized', '유효하지 않은 accessToken입니다.'));
         }
         const { userId } = (0, token_1.decodeToken)(accessToken);
         const userRepository = data_source_1.AppDataSource.getRepository(User_1.User);

@@ -14,6 +14,10 @@ const customError_1 = require("../../libs/customError");
 const data_source_1 = require("../../data-source");
 const LikePortfolio_1 = require("../../entities/LikePortfolio");
 const Portfolio_1 = require("../../entities/Portfolio");
+/**
+ * 좋아요
+ * POST /v1/portfolio/like/:portfolioId
+ */
 const likePortfolio = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     if (!req.user) {
         return next(new customError_1.CustomError(401, 'Unauthorized', '해당 api에 접근 권한이 없습니다.'));
@@ -47,7 +51,7 @@ const likePortfolio = (req, res, next) => __awaiter(void 0, void 0, void 0, func
             where: { id: portfolioId },
         });
         if (!portfolio) {
-            return next(new customError_1.CustomError(400, 'Validation', '해당 portfolioId값이 존재하지 않습니다.'));
+            return next(new customError_1.CustomError(404, 'General', '해당 portfolioId값이 존재하지 않습니다.'));
         }
         portfolio.likeCount = portfolio.likeCount + 1;
         yield portFolioRepository.save(portfolio);
@@ -63,6 +67,10 @@ const likePortfolio = (req, res, next) => __awaiter(void 0, void 0, void 0, func
     }
 });
 exports.likePortfolio = likePortfolio;
+/**
+ * 좋아요 취소
+ * POST /v1/portfolio/unlike/:portfolioId
+ */
 const unlikePortfolio = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     if (!req.user) {
         return next(new customError_1.CustomError(401, 'Unauthorized', '해당 api에 접근 권한이 없습니다.'));
@@ -81,7 +89,7 @@ const unlikePortfolio = (req, res, next) => __awaiter(void 0, void 0, void 0, fu
             where: { portfolioId: portfolioId, userId: id },
         });
         if (!existingLike) {
-            return next(new customError_1.CustomError(400, 'Validation', '해당 값이 존재하지 않습니다.'));
+            return next(new customError_1.CustomError(404, 'General', '해당 좋아요 값이 존재하지 않습니다.'));
         }
         existingLike.status = false;
         yield likePortFolioRepository.save(existingLike);
@@ -90,7 +98,7 @@ const unlikePortfolio = (req, res, next) => __awaiter(void 0, void 0, void 0, fu
             where: { id: portfolioId },
         });
         if (!portfolio) {
-            return next(new customError_1.CustomError(400, 'Validation', '해당 portfolioId값이 존재하지 않습니다.'));
+            return next(new customError_1.CustomError(404, 'General', '해당 portfolioId값이 존재하지 않습니다.'));
         }
         portfolio.likeCount = portfolio.likeCount - 1;
         yield portFolioRepository.save(portfolio);

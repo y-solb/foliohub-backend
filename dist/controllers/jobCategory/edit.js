@@ -13,6 +13,10 @@ exports.editJobCategory = void 0;
 const customError_1 = require("../../libs/customError");
 const data_source_1 = require("../../data-source");
 const Portfolio_1 = require("../../entities/Portfolio");
+/**
+ * 직업 카테고리 수정
+ * PUT /v1/job-category
+ */
 const editJobCategory = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     if (!req.user) {
         return next(new customError_1.CustomError(401, 'Unauthorized', '해당 api에 접근 권한이 없습니다.'));
@@ -29,7 +33,7 @@ const editJobCategory = (req, res, next) => __awaiter(void 0, void 0, void 0, fu
         const portfolioRepository = data_source_1.AppDataSource.getRepository(Portfolio_1.Portfolio);
         const portfolio = yield portfolioRepository.findOne({ where: { userId: id } });
         if (!portfolio) {
-            return next(new customError_1.CustomError(400, 'General', '해당 portfolio가 존재하지 않습니다.'));
+            return next(new customError_1.CustomError(404, 'General', '해당 portfolio가 존재하지 않습니다.'));
         }
         portfolio.jobCategoryCode = jobCode;
         yield portfolioRepository.save(portfolio);

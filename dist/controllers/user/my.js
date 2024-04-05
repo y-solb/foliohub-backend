@@ -16,6 +16,10 @@ const data_source_1 = require("../../data-source");
 const User_1 = require("../../entities/User");
 const Portfolio_1 = require("../../entities/Portfolio");
 const utils_1 = require("../../libs/utils");
+/**
+ * 마이페이지 정보
+ * GET /v1/user/my
+ */
 const my = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     if (!req.user) {
         return next(new customError_1.CustomError(401, 'Unauthorized', '해당 api에 접근 권한이 없습니다.'));
@@ -30,7 +34,7 @@ const my = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
             select: ['id', 'username'],
         });
         if (!user) {
-            return next(new customError_1.CustomError(400, 'General', '해당 user가 존재하지 않습니다.'));
+            return next(new customError_1.CustomError(404, 'General', '해당 user가 존재하지 않습니다.'));
         }
         const portfolioRepository = data_source_1.AppDataSource.getRepository(Portfolio_1.Portfolio);
         const portfolio = yield portfolioRepository.findOne({
@@ -40,7 +44,7 @@ const my = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
             select: ['displayName', 'thumbnail', 'jobCategoryCode'],
         });
         if (!portfolio) {
-            return next(new customError_1.CustomError(400, 'General', '해당 portfolio가 존재하지 않습니다.'));
+            return next(new customError_1.CustomError(404, 'General', '해당 portfolio가 존재하지 않습니다.'));
         }
         if (!portfolio.jobCategoryCode) {
             return res.json(Object.assign(Object.assign(Object.assign({}, user), portfolio), { thumbnail: portfolio.thumbnail ? (0, utils_1.prependCloudinaryBaseUrl)(portfolio.thumbnail) : null, job: null, jobCode: null }));

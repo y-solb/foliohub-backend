@@ -16,6 +16,10 @@ const Portfolio_1 = require("../../entities/Portfolio");
 const Asset_1 = require("../../entities/Asset");
 const SocialLink_1 = require("../../entities/SocialLink");
 const utils_1 = require("../../libs/utils");
+/**
+ * 포트폴리오 수정
+ * PUT /v1/portfolio/:username
+ */
 const editPortFolio = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     if (!req.user) {
         return next(new customError_1.CustomError(401, 'Unauthorized', '해당 api에 접근 권한이 없습니다.'));
@@ -33,7 +37,7 @@ const editPortFolio = (req, res, next) => __awaiter(void 0, void 0, void 0, func
             },
         });
         if (!portfolio) {
-            return next(new customError_1.CustomError(400, 'General', '해당 portfolio가 존재하지 않습니다.'));
+            return next(new customError_1.CustomError(404, 'General', '해당 portfolio가 존재하지 않습니다.'));
         }
         portfolio.displayName = displayName;
         portfolio.shortBio = shortBio;
@@ -47,7 +51,7 @@ const editPortFolio = (req, res, next) => __awaiter(void 0, void 0, void 0, func
             },
         });
         if (!socialLink) {
-            return next(new customError_1.CustomError(400, 'General', '해당 socialLink가 존재하지 않습니다.'));
+            return next(new customError_1.CustomError(404, 'General', '해당 socialLink가 존재하지 않습니다.'));
         }
         socialLink.blogLink = blogLink;
         socialLink.linkedinLink = linkedinLink;
@@ -67,7 +71,7 @@ const editPortFolio = (req, res, next) => __awaiter(void 0, void 0, void 0, func
                     },
                 });
                 if (!existingAsset) {
-                    return next(new customError_1.CustomError(400, 'General', '해당 asset이 존재하지 않습니다.'));
+                    return next(new customError_1.CustomError(404, 'General', '해당 asset이 존재하지 않습니다.'));
                 }
                 if (asset.type === 'github') {
                     existingAsset.githubId = asset.value.githubId;
@@ -100,7 +104,7 @@ const editPortFolio = (req, res, next) => __awaiter(void 0, void 0, void 0, func
                     },
                 });
                 if (!existingAsset) {
-                    return next(new customError_1.CustomError(400, 'General', '해당 asset이 존재하지 않습니다.'));
+                    return next(new customError_1.CustomError(404, 'General', '해당 asset이 존재하지 않습니다.'));
                 }
                 existingAsset.status = false;
                 yield assetRepository.save(existingAsset);

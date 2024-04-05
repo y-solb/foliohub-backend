@@ -13,7 +13,7 @@ exports.logout = void 0;
 const customError_1 = require("../../libs/customError");
 /**
  * 로그아웃
- * GET /v1/auth/logout
+ * POST /v1/auth/logout
  */
 const logout = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {

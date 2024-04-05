@@ -25,6 +25,10 @@ const customError_1 = require("../../libs/customError");
 const data_source_1 = require("../../data-source");
 const Portfolio_1 = require("../../entities/Portfolio");
 const utils_1 = require("../../libs/utils");
+/**
+ * 포트폴리오 list
+ * GET /v1/portfolio/list
+ */
 const listPortFolio = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const currentPage = Number(req.query.page) || 0;
     const perPage = Number(req.query.count) || 10;

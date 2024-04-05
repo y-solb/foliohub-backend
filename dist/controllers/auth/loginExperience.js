@@ -9,20 +9,19 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.experience = void 0;
+exports.loginExperience = void 0;
 const User_1 = require("../../entities/User");
 const data_source_1 = require("../../data-source");
 const token_1 = require("../../libs/token");
 const customError_1 = require("../../libs/customError");
 /**
  * 체험 로그인
- * /v1/auth/experience
+ * POST /v1/auth/loginExperience
  */
-const experience = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+const loginExperience = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const { code } = req.body;
     if (!code || code !== 'HelloWorld') {
-        res.status(400).json({ message: 'Invalid code' });
-        return;
+        return next(new customError_1.CustomError(400, 'General', '타당하지 않은 code입니다.'));
     }
     try {
         const userRepository = data_source_1.AppDataSource.getRepository(User_1.User);
@@ -31,8 +30,9 @@ const experience = (req, res, next) => __awaiter(void 0, void 0, void 0, functio
                 providerId: 'test',
             },
         });
-        if (!user)
-            return;
+        if (!user) {
+            return next(new customError_1.CustomError(404, 'General', '해당 user가 존재하지 않습니다.'));
+        }
         const token = yield user.generateUserToken();
         (0, token_1.setTokenCookie)(res, token);
         return res.json({
@@ -44,4 +44,4 @@ const experience = (req, res, next) => __awaiter(void 0, void 0, void 0, functio
         return next(new customError_1.CustomError(400, 'Raw', 'Error', null, error));
     }
 });
-exports.experience = experience;
+exports.loginExperience = loginExperience;

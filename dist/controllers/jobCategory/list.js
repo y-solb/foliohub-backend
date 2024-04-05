@@ -36,6 +36,10 @@ function categorizeJobCategories(categories) {
     });
     return Object.values(categorizedCategories);
 }
+/**
+ * 직업 카테고리
+ * GET /v1/job-category/list
+ */
 const listJobCategory = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const jobCategories = yield data_source_1.AppDataSource.getRepository(JobCategory_1.JobCategory).find({

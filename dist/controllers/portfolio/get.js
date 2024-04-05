@@ -18,6 +18,10 @@ const User_1 = require("../../entities/User");
 const LikePortfolio_1 = require("../../entities/LikePortfolio");
 const SocialLink_1 = require("../../entities/SocialLink");
 const utils_1 = require("../../libs/utils");
+/**
+ * 포트폴리오
+ * GET /v1/portfolio/:username
+ */
 const getPortFolio = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const { username } = req.params;
     try {
@@ -28,7 +32,7 @@ const getPortFolio = (req, res, next) => __awaiter(void 0, void 0, void 0, funct
             },
         });
         if (!user) {
-            return next(new customError_1.CustomError(400, 'General', '해당 user가 존재하지 않습니다.'));
+            return next(new customError_1.CustomError(404, 'General', '해당 user가 존재하지 않습니다.'));
         }
         const portfolioRepository = data_source_1.AppDataSource.getRepository(Portfolio_1.Portfolio);
         const portfolio = yield portfolioRepository.findOne({
@@ -37,7 +41,7 @@ const getPortFolio = (req, res, next) => __awaiter(void 0, void 0, void 0, funct
             },
         });
         if (!portfolio) {
-            return next(new customError_1.CustomError(400, 'General', '해당 portfolio가 존재하지 않습니다.'));
+            return next(new customError_1.CustomError(404, 'General', '해당 portfolio가 존재하지 않습니다.'));
         }
         let isLike = false;
         if (req.user) {
