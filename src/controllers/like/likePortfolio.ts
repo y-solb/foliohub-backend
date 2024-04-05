@@ -4,6 +4,10 @@ import { AppDataSource } from '../../data-source';
 import { LikePortfolio } from '../../entities/LikePortfolio';
 import { Portfolio } from '../../entities/Portfolio';
 
+/**
+ * 좋아요
+ * POST /v1/portfolio/like/:portfolioId
+ */
 export const likePortfolio = async (req: Request, res: Response, next: NextFunction) => {
   if (!req.user) {
     return next(new CustomError(401, 'Unauthorized', '해당 api에 접근 권한이 없습니다.'));
@@ -13,6 +17,7 @@ export const likePortfolio = async (req: Request, res: Response, next: NextFunct
   if (!id) {
     return next(new CustomError(401, 'Unauthorized', '해당 api에 접근 권한이 없습니다.'));
   }
+
   const { portfolioId } = req.params;
   if (!portfolioId) {
     return next(new CustomError(400, 'Validation', '해당 portfolioId값이 존재하지 않습니다.'));
@@ -42,7 +47,7 @@ export const likePortfolio = async (req: Request, res: Response, next: NextFunct
     });
 
     if (!portfolio) {
-      return next(new CustomError(400, 'Validation', '해당 portfolioId값이 존재하지 않습니다.'));
+      return next(new CustomError(404, 'General', '해당 portfolioId값이 존재하지 않습니다.'));
     }
     portfolio.likeCount = portfolio.likeCount + 1;
     await portFolioRepository.save(portfolio);
@@ -58,6 +63,10 @@ export const likePortfolio = async (req: Request, res: Response, next: NextFunct
   }
 };
 
+/**
+ * 좋아요 취소
+ * POST /v1/portfolio/unlike/:portfolioId
+ */
 export const unlikePortfolio = async (req: Request, res: Response, next: NextFunction) => {
   if (!req.user) {
     return next(new CustomError(401, 'Unauthorized', '해당 api에 접근 권한이 없습니다.'));
@@ -78,7 +87,7 @@ export const unlikePortfolio = async (req: Request, res: Response, next: NextFun
       where: { portfolioId: portfolioId, userId: id },
     });
     if (!existingLike) {
-      return next(new CustomError(400, 'Validation', '해당 값이 존재하지 않습니다.'));
+      return next(new CustomError(404, 'General', '해당 좋아요 값이 존재하지 않습니다.'));
     }
 
     existingLike.status = false;
@@ -90,7 +99,7 @@ export const unlikePortfolio = async (req: Request, res: Response, next: NextFun
     });
 
     if (!portfolio) {
-      return next(new CustomError(400, 'Validation', '해당 portfolioId값이 존재하지 않습니다.'));
+      return next(new CustomError(404, 'General', '해당 portfolioId값이 존재하지 않습니다.'));
     }
     portfolio.likeCount = portfolio.likeCount - 1;
     await portFolioRepository.save(portfolio);

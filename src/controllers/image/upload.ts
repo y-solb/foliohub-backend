@@ -9,6 +9,11 @@ cloudinary.config({
   api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 const IMAGETYPES = ['thumbnail', 'asset'];
+
+/**
+ * 이미지 업로드
+ * POST /v1/image/upload/:type'
+ */
 export const uploadImage = async (req: Request, res: Response, next: NextFunction) => {
   const { type } = req.params;
   if (!IMAGETYPES.includes(type)) {
@@ -16,7 +21,7 @@ export const uploadImage = async (req: Request, res: Response, next: NextFunctio
   }
   try {
     if (!req.file) {
-      throw new Error('No file uploaded');
+      return next(new CustomError(400, 'Validation', '업로드 할 파일이 존재하지 않습니다.'));
     }
     const file = req.file.path;
 
@@ -36,7 +41,6 @@ export const uploadImage = async (req: Request, res: Response, next: NextFunctio
       });
     });
   } catch (error) {
-    console.error('이미지 업로드 중 오류 발생:', error);
-    res.status(500).json({ error: '이미지 업로드 중 오류 발생' });
+    return next(new CustomError(400, 'Raw', 'Error', null, error));
   }
 };

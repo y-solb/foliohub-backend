@@ -3,7 +3,7 @@ import { CustomError } from '../../libs/customError';
 
 /**
  * 로그아웃
- * GET /v1/auth/logout
+ * POST /v1/auth/logout
  */
 export const logout = async (req: Request, res: Response, next: NextFunction) => {
   try {

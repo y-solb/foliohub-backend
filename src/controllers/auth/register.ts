@@ -8,7 +8,7 @@ import { SocialLink } from '../../entities/SocialLink';
 
 /**
  * 회원가입
- * GET /v1/auth/register
+ * POST /v1/auth/register
  */
 export const register = async (req: Request, res: Response, next: NextFunction) => {
   try {
@@ -35,6 +35,7 @@ export const register = async (req: Request, res: Response, next: NextFunction) 
       provider: 'google';
       providerId: string;
     };
+
     const user = new User();
     user.email = email;
     user.username = username;

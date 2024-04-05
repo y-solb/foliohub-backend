@@ -6,12 +6,13 @@ import AuthToken from '../../entities/AuthToken';
 
 /**
  * accessToken 재발급
- * GET /v1/auth/refresh
+ * POST /v1/auth/refresh
  */
 export const refresh = async (req: Request, res: Response, next: NextFunction) => {
   const { refreshToken } = req.cookies;
-  if (!refreshToken)
+  if (!refreshToken) {
     return next(new CustomError(401, 'Unauthorized', 'refreshToken이 존재하지 않습니다.'));
+  }
 
   try {
     const authTokenRepository = AppDataSource.getRepository(AuthToken);
@@ -21,8 +22,9 @@ export const refresh = async (req: Request, res: Response, next: NextFunction) =
       },
     });
 
-    if (!authToken)
+    if (!authToken) {
       return next(new CustomError(401, 'Unauthorized', '해당 token이 존재하지 않습니다.'));
+    }
 
     const accessToken = generateToken(
       {

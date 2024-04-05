@@ -21,9 +21,7 @@ export default async (req: Request, res: Response, next: NextFunction) => {
     }
 
     if (!accessToken) {
-      return res
-        .status(401)
-        .json({ error: 'Unauthorized', message: '유효하지 않은 accessToken입니다.' });
+      return next(new CustomError(401, 'Unauthorized', '유효하지 않은 accessToken입니다.'));
     }
 
     const { userId } = decodeToken(accessToken) as { userId: string };

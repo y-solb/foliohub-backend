@@ -6,13 +6,12 @@ import { CustomError } from '../../libs/customError';
 
 /**
  * 체험 로그인
- * /v1/auth/experience
+ * POST /v1/auth/loginExperience
  */
-export const experience = async (req: Request, res: Response, next: NextFunction) => {
+export const loginExperience = async (req: Request, res: Response, next: NextFunction) => {
   const { code } = req.body;
   if (!code || code !== 'HelloWorld') {
-    res.status(400).json({ message: 'Invalid code' });
-    return;
+    return next(new CustomError(400, 'General', '타당하지 않은 code입니다.'));
   }
 
   try {
@@ -23,7 +22,9 @@ export const experience = async (req: Request, res: Response, next: NextFunction
       },
     });
 
-    if (!user) return;
+    if (!user) {
+      return next(new CustomError(404, 'General', '해당 user가 존재하지 않습니다.'));
+    }
 
     const token = await user.generateUserToken();
     setTokenCookie(res, token);

@@ -4,9 +4,15 @@ import { AppDataSource } from '../../data-source';
 import { User } from '../../entities/User';
 import { prependCloudinaryBaseUrl } from '../../libs/utils';
 
+/**
+ * 유저 정보 확인
+ * GET /v1/auth
+ */
 export const getAuthInfo = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    if (req.user === null) return res.json(null);
+    if (req.user === null) {
+      return res.json(null);
+    }
 
     // 로그인 상태
     const userRepository = AppDataSource.getRepository(User);
@@ -16,7 +22,10 @@ export const getAuthInfo = async (req: Request, res: Response, next: NextFunctio
       },
       relations: ['portfolio'],
     });
-    if (!user) return next(new CustomError(401, 'Unauthorized', '해당 user가 존재하지 않습니다.'));
+    if (!user) {
+      return next(new CustomError(404, 'General', '해당 user가 존재하지 않습니다.'));
+    }
+
     const { portfolio, id, username } = user;
 
     return res.json({

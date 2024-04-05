@@ -5,11 +5,15 @@ import { User } from '../../entities/User';
 import { Portfolio } from '../../entities/Portfolio';
 import { prependCloudinaryBaseUrl } from '../../libs/utils';
 
+/**
+ * 포트폴리오 metadata
+ * GET /v1/portfolio/metadata
+ */
 export const metadataPortfolio = async (req: Request, res: Response, next: NextFunction) => {
   const { username } = req.query;
 
   if (typeof username !== 'string')
-    return next(new CustomError(400, 'General', 'username이 string 타입이 아닙니다.'));
+    return next(new CustomError(400, 'Validation', 'username이 string 타입이 아닙니다.'));
 
   try {
     const UserRepository = AppDataSource.getRepository(User);
@@ -20,7 +24,7 @@ export const metadataPortfolio = async (req: Request, res: Response, next: NextF
       select: ['id'],
     });
     if (!user) {
-      return next(new CustomError(400, 'General', '해당 user가 존재하지 않습니다.'));
+      return next(new CustomError(404, 'General', '해당 user가 존재하지 않습니다.'));
     }
     const portfolioRepository = AppDataSource.getRepository(Portfolio);
     const portfolio = await portfolioRepository.findOne({

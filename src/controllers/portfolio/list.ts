@@ -4,6 +4,10 @@ import { AppDataSource } from '../../data-source';
 import { Portfolio } from '../../entities/Portfolio';
 import { prependCloudinaryBaseUrl } from '../../libs/utils';
 
+/**
+ * 포트폴리오 list
+ * GET /v1/portfolio/list
+ */
 export const listPortFolio = async (req: Request, res: Response, next: NextFunction) => {
   const currentPage: number = Number(req.query.page) || 0;
   const perPage: number = Number(req.query.count) || 10;

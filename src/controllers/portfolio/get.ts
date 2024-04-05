@@ -8,6 +8,11 @@ import { LikePortfolio } from '../../entities/LikePortfolio';
 import { SocialLink } from '../../entities/SocialLink';
 import { prependCloudinaryBaseUrl } from '../../libs/utils';
 
+/**
+ * 포트폴리오
+ * GET /v1/portfolio/:username
+ */
+
 export const getPortFolio = async (req: Request, res: Response, next: NextFunction) => {
   const { username } = req.params;
 
@@ -19,7 +24,7 @@ export const getPortFolio = async (req: Request, res: Response, next: NextFuncti
       },
     });
     if (!user) {
-      return next(new CustomError(400, 'General', '해당 user가 존재하지 않습니다.'));
+      return next(new CustomError(404, 'General', '해당 user가 존재하지 않습니다.'));
     }
     const portfolioRepository = AppDataSource.getRepository(Portfolio);
     const portfolio = await portfolioRepository.findOne({
@@ -28,7 +33,7 @@ export const getPortFolio = async (req: Request, res: Response, next: NextFuncti
       },
     });
     if (!portfolio) {
-      return next(new CustomError(400, 'General', '해당 portfolio가 존재하지 않습니다.'));
+      return next(new CustomError(404, 'General', '해당 portfolio가 존재하지 않습니다.'));
     }
 
     let isLike = false;

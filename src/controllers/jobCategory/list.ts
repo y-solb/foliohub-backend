@@ -37,6 +37,10 @@ function categorizeJobCategories(categories: JobCategory[]) {
   return Object.values(categorizedCategories);
 }
 
+/**
+ * 직업 카테고리
+ * GET /v1/job-category/list
+ */
 export const listJobCategory = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const jobCategories = await AppDataSource.getRepository(JobCategory).find({

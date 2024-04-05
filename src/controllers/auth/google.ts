@@ -34,7 +34,7 @@ export const socialRedirect = (req: Request, res: Response, next: NextFunction) 
   const { provider } = req.params;
 
   if (provider !== 'google') {
-    return next(new CustomError(400, 'General', `해당 ${provider} provider는 존재하지 않습니다.`));
+    return next(new CustomError(400, 'General', '해당 provider는 존재하지 않습니다.'));
   }
 
   const loginUrl = generators[provider]();
@@ -43,13 +43,12 @@ export const socialRedirect = (req: Request, res: Response, next: NextFunction) 
 
 /**
  * 구글 redirect uri
- * /v1/auth/callback/google
+ * GET /v1/auth/callback/google
  */
 export const googleCallback = async (req: Request, res: Response, next: NextFunction) => {
   const { code }: { code?: string } = req.query;
   if (!code) {
-    res.status(400).send();
-    return;
+    return next(new CustomError(400, 'General', '해당 google code가 존재하지 않습니다.'));
   }
 
   try {

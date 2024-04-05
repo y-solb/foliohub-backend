@@ -6,6 +6,10 @@ import { User } from '../../entities/User';
 import { Portfolio } from '../../entities/Portfolio';
 import { prependCloudinaryBaseUrl } from '../../libs/utils';
 
+/**
+ * 마이페이지 정보
+ * GET /v1/user/my
+ */
 export const my = async (req: Request, res: Response, next: NextFunction) => {
   if (!req.user) {
     return next(new CustomError(401, 'Unauthorized', '해당 api에 접근 권한이 없습니다.'));
@@ -22,7 +26,7 @@ export const my = async (req: Request, res: Response, next: NextFunction) => {
       select: ['id', 'username'],
     });
     if (!user) {
-      return next(new CustomError(400, 'General', '해당 user가 존재하지 않습니다.'));
+      return next(new CustomError(404, 'General', '해당 user가 존재하지 않습니다.'));
     }
     const portfolioRepository = AppDataSource.getRepository(Portfolio);
     const portfolio = await portfolioRepository.findOne({
@@ -33,7 +37,7 @@ export const my = async (req: Request, res: Response, next: NextFunction) => {
     });
 
     if (!portfolio) {
-      return next(new CustomError(400, 'General', '해당 portfolio가 존재하지 않습니다.'));
+      return next(new CustomError(404, 'General', '해당 portfolio가 존재하지 않습니다.'));
     }
     if (!portfolio.jobCategoryCode) {
       return res.json({
