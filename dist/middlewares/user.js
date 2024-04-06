@@ -37,7 +37,7 @@ exports.default = (req, res, next) => __awaiter(void 0, void 0, void 0, function
             },
         });
         if (!user)
-            return next(new customError_1.CustomError(401, 'Unauthorized', '해당 user가 존재하지 않습니다.'));
+            return next(new customError_1.CustomError(404, 'General', '해당 user가 존재하지 않습니다.'));
         const { id, username } = user;
         req.user = { id, username };
         return next();

@@ -27,7 +27,7 @@ const editPortFolio = (req, res, next) => __awaiter(void 0, void 0, void 0, func
     const { username } = req.params;
     const { displayName, shortBio, thumbnail, assets, layout, socialLink: { blogLink, linkedinLink, facebookLink, githubLink, instagramLink, twitterLink, youtubeLink, }, } = req.body;
     if (username !== req.user.username) {
-        return next(new customError_1.CustomError(401, 'Unauthorized', '해당 페이지에 접근 권한이 없습니다.'));
+        return next(new customError_1.CustomError(403, 'Forbidden', '해당 api에 접근 권한이 없습니다.'));
     }
     try {
         const portfolioRepository = data_source_1.AppDataSource.getRepository(Portfolio_1.Portfolio);
