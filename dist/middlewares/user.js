@@ -21,9 +21,9 @@ exports.default = (req, res, next) => __awaiter(void 0, void 0, void 0, function
             return next();
         }
         if (!refreshToken) {
-            res.clearCookie('accessToken');
-            res.clearCookie('refreshToken');
-            res.json('logout');
+            res.clearCookie('accessToken', { domain: process.env.COOKIE_DOMAIN, path: '/' });
+            res.clearCookie('refreshToken', { domain: process.env.COOKIE_DOMAIN, path: '/' });
+            res.json({ message: '로그아웃 처리 되었습니다.' });
             return;
         }
         if (!accessToken) {

@@ -18,9 +18,9 @@ const customError_1 = require("../../libs/customError");
 const logout = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         // TODO: AuthToken에서 삭제해야 하는지
-        res.clearCookie('accessToken');
-        res.clearCookie('refreshToken');
-        res.json('success');
+        res.clearCookie('accessToken', { domain: process.env.COOKIE_DOMAIN, path: '/' });
+        res.clearCookie('refreshToken', { domain: process.env.COOKIE_DOMAIN, path: '/' });
+        res.json({ message: '로그아웃 처리 되었습니다.' });
     }
     catch (error) {
         return next(new customError_1.CustomError(400, 'Raw', 'Error', null, error));

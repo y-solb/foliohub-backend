@@ -53,7 +53,7 @@ const register = (req, res, next) => __awaiter(void 0, void 0, void 0, function*
         const socialLink = new SocialLink_1.SocialLink();
         socialLink.userId = user.id;
         yield data_source_1.AppDataSource.getRepository(SocialLink_1.SocialLink).save(socialLink);
-        res.clearCookie('registerToken');
+        res.clearCookie('registerToken', { domain: process.env.COOKIE_DOMAIN, path: '/' });
         const token = yield user.generateUserToken();
         (0, token_1.setTokenCookie)(res, token);
         res.json('success');
