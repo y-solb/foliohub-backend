@@ -53,7 +53,7 @@ export const register = async (req: Request, res: Response, next: NextFunction) 
     socialLink.userId = user.id;
     await AppDataSource.getRepository(SocialLink).save(socialLink);
 
-    res.clearCookie('registerToken');
+    res.clearCookie('registerToken', { domain: process.env.COOKIE_DOMAIN, path: '/' });
 
     const token = await user.generateUserToken();
     setTokenCookie(res, token);
