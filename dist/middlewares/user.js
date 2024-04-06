@@ -23,8 +23,8 @@ exports.default = (req, res, next) => __awaiter(void 0, void 0, void 0, function
         if (!refreshToken) {
             res.clearCookie('accessToken', { domain: process.env.COOKIE_DOMAIN, path: '/' });
             res.clearCookie('refreshToken', { domain: process.env.COOKIE_DOMAIN, path: '/' });
-            res.json({ message: '로그아웃 처리 되었습니다.' });
-            return;
+            req.user = null;
+            return next();
         }
         if (!accessToken) {
             return next(new customError_1.CustomError(401, 'Unauthorized', '유효하지 않은 accessToken입니다.'));
