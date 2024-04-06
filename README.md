@@ -9,9 +9,8 @@
 ![main](https://github.com/y-solb/foliohub-backend/assets/59462108/1c17f2c2-da2a-477d-b9a6-65960393bb04)
 ![list](https://github.com/y-solb/foliohub-backend/assets/59462108/99ca6a66-1e10-436f-87db-721045bbb44d)
 ![mypage](https://github.com/y-solb/foliohub-backend/assets/59462108/c5d767d8-8242-4c56-b9fb-57ab19bc45e2)
-![asset1](https://github.com/y-solb/foliohub-backend/assets/59462108/40a57eff-1e39-4279-b61c-ba59bf620642)
-![asset2](https://github.com/y-solb/foliohub-backend/assets/59462108/4fc022a4-1bcb-4c4e-aadf-3555285a8fc9)
-![experience](https://github.com/y-solb/foliohub-backend/assets/59462108/498f81af-3fd9-4cbb-8f74-d3591dda41ee)
+![asset1](https://github.com/y-solb/foliohub-backend/assets/59462108/d06a3055-d4b5-41b5-ba12-4afaf1ec6ac9)
+![experience](https://github.com/y-solb/foliohub-backend/assets/59462108/1f2ff8a8-b5c8-4bb1-adce-7e4637ca072d)
 
 ### [🚀 서비스 보러가기](https://www.foliohub.me)
 
