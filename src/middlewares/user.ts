@@ -16,8 +16,8 @@ export default async (req: Request, res: Response, next: NextFunction) => {
     if (!refreshToken) {
       res.clearCookie('accessToken', { domain: process.env.COOKIE_DOMAIN, path: '/' });
       res.clearCookie('refreshToken', { domain: process.env.COOKIE_DOMAIN, path: '/' });
-      res.json({ message: '로그아웃 처리 되었습니다.' });
-      return;
+      req.user = null;
+      return next();
     }
 
     if (!accessToken) {
