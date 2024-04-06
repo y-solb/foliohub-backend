@@ -25,7 +25,12 @@ export const refresh = async (req: Request, res: Response, next: NextFunction) =
     if (!authToken) {
       return next(new CustomError(401, 'Unauthorized', '해당 token이 존재하지 않습니다.'));
     }
-
+    const currentTimestamp = new Date().getTime();
+    if (authToken.expiresAt.getTime() <= currentTimestamp) {
+      res.clearCookie('accessToken', { domain: process.env.COOKIE_DOMAIN, path: '/' });
+      res.clearCookie('refreshToken', { domain: process.env.COOKIE_DOMAIN, path: '/' });
+      return res.json({ message: 'token이 만료되었습니다. 다시 로그인해주세요.' });
+    }
     const accessToken = generateToken(
       {
         userId: authToken.userId,
@@ -37,7 +42,7 @@ export const refresh = async (req: Request, res: Response, next: NextFunction) =
     );
 
     setAccessTokenCookie(res, accessToken);
-    res.json('success');
+    return res.json({ message: 'accessToken이 재발급되었습니다.' });
   } catch (error) {
     return next(new CustomError(400, 'Raw', 'Error', null, error));
   }
