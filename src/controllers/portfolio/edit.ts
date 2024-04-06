@@ -34,7 +34,7 @@ export const editPortFolio = async (req: Request, res: Response, next: NextFunct
     },
   } = req.body;
   if (username !== req.user.username) {
-    return next(new CustomError(401, 'Unauthorized', '해당 페이지에 접근 권한이 없습니다.'));
+    return next(new CustomError(403, 'Forbidden', '해당 api에 접근 권한이 없습니다.'));
   }
 
   try {

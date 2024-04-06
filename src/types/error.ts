@@ -7,6 +7,6 @@ export type ErrorResponse = {
   stack?: string;
 };
 
-export type ErrorType = 'General' | 'Raw' | 'Validation' | 'Unauthorized';
+export type ErrorType = 'General' | 'Raw' | 'Validation' | 'Unauthorized' | 'Forbidden';
 
 export type ErrorValidation = { [key: string]: string };

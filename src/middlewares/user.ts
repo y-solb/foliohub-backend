@@ -32,7 +32,7 @@ export default async (req: Request, res: Response, next: NextFunction) => {
         id: userId,
       },
     });
-    if (!user) return next(new CustomError(401, 'Unauthorized', '해당 user가 존재하지 않습니다.'));
+    if (!user) return next(new CustomError(404, 'General', '해당 user가 존재하지 않습니다.'));
     const { id, username } = user;
     req.user = { id, username };
 
