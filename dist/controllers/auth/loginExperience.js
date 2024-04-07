@@ -20,14 +20,15 @@ const customError_1 = require("../../libs/customError");
  */
 const loginExperience = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const { code } = req.body;
-    if (!code || code !== 'HelloWorld') {
-        return next(new customError_1.CustomError(400, 'General', '타당하지 않은 code입니다.'));
-    }
+    // if (!code || code !== 'HelloWorld') {
+    //   return next(new CustomError(400, 'General', '타당하지 않은 code입니다.'));
+    // }
     try {
         const userRepository = data_source_1.AppDataSource.getRepository(User_1.User);
         const user = yield userRepository.findOne({
             where: {
-                providerId: 'test',
+                // providerId: 'test',
+                username: code,
             },
         });
         if (!user) {
