@@ -114,6 +114,7 @@ POSTGRES_DB=
 docker compose up
 ```
 
-## 🗂️ Repository
+## 🗂️ 관련 링크
 
 - [Foliohub Front Repository](https://github.com/y-solb/foliohub-frontend)
+- [1차 완성 회고](https://sollogging.tistory.com/83)
