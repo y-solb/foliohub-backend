@@ -46,7 +46,7 @@ function setAccessTokenCookie(res, accessToken) {
         httpOnly: true,
         sameSite: 'strict',
         secure: true,
-        domain: process.env.DOMAIN,
+        domain: process.env.COOKIE_DOMAIN,
     });
 }
 exports.setAccessTokenCookie = setAccessTokenCookie;
