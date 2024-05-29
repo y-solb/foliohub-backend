@@ -10,16 +10,15 @@ import { CustomError } from '../../libs/customError';
  */
 export const loginExperience = async (req: Request, res: Response, next: NextFunction) => {
   const { code } = req.body;
-  // if (!code || code !== 'HelloWorld') {
-  //   return next(new CustomError(400, 'General', '타당하지 않은 code입니다.'));
-  // }
+  if (!code || code !== 'HelloWorld') {
+    return next(new CustomError(400, 'General', '타당하지 않은 code입니다.'));
+  }
 
   try {
     const userRepository = AppDataSource.getRepository(User);
     const user = await userRepository.findOne({
       where: {
-        // providerId: 'test',
-        username: code,
+        providerId: 'test',
       },
     });
 
