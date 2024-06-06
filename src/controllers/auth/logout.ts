@@ -1,5 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 import { CustomError } from '../../libs/customError';
+import { AppDataSource } from '../../data-source';
+import AuthToken from '../../entities/AuthToken';
 
 /**
  * 로그아웃
@@ -7,7 +9,16 @@ import { CustomError } from '../../libs/customError';
  */
 export const logout = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    // TODO: AuthToken에서 삭제해야 하는지
+    const { refreshToken } = req.cookies;
+    if (!refreshToken) {
+      return next(new CustomError(401, 'Unauthorized', 'refreshToken이 존재하지 않습니다.'));
+    }
+
+    const authTokenRepository = AppDataSource.getRepository(AuthToken);
+    await authTokenRepository.delete({
+      token: refreshToken,
+    });
+
     res.clearCookie('accessToken', { domain: process.env.COOKIE_DOMAIN, path: '/' });
     res.clearCookie('refreshToken', { domain: process.env.COOKIE_DOMAIN, path: '/' });
     res.json({ message: '로그아웃 처리 되었습니다.' });
