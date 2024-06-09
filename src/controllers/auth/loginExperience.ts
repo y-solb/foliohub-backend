@@ -30,7 +30,7 @@ export const loginExperience = async (req: Request, res: Response, next: NextFun
     setTokenCookie(res, token);
     return res.json({
       success: true,
-      message: '체험 로그인이 완료되었습니다.',
+      message: '체험 로그인이 완료되었습니다!',
     });
   } catch (error) {
     return next(new CustomError(400, 'Raw', 'Error', null, error));
