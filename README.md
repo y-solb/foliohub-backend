@@ -40,7 +40,7 @@
 
 - Google 소셜 로그인을 구현하였습니다.
 - 사용자가 로그인하면 Google로부터 받은 정보를 확인하고, 기존 회원인 경우 accessToken과 refreshToken을 쿠키를 통해 발급합니다. 또한, AuthToken 테이블에 userId, refreshToken, 만료일을 저장하여 accessToken 재발급 시 이를 활용합니다.
-- 보안을 강화하기 위해 쿠키는 httpOnly, secure, sameSite 옵션을 설정했습니다.
+- 보안을 강화하기 위해 쿠키는 `httpOnly`, `secure`, `sameSite` 옵션을 설정했습니다.
 - accessToken은 1시간, refreshToken은 14일 뒤에 만료되며, accessToken 만료 시 refreshToken으로 재발급 받을 수 있도록 구현되었습니다. 또한, accessToken에는 userId가 포함되어 있어서 인증 middleware에서 accessToken을 decode하여 userId를 확인할 수 있습니다.
 - 로그인 후 회원가입이 필요한 경우, 회원가입 페이지로 리다이렉트합니다. 이때 사용자 정보(email, provider, providerId)를 토큰으로 생성하고 쿠키에 저장하여 회원가입 시 사용할 수 있도록 구현하였습니다.
 - 인증이 필요한 API의 경우 middleware를 거칩니다. 여기서 accessToken과 refreshToken을 확인하여, 모두 있는 경우에만 accessToken을 decode하여 사용자의 정보를 가져옵니다. 이 정보를 요청(req) 객체에 추가하여 이후의 작업에서도 사용할 수 있도록 했습니다.
