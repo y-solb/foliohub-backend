@@ -2,7 +2,7 @@
 
 [![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2Fy-solb%2Ffoliohub-backend&count_bg=%23607AE9&title_bg=%236A6A6A&icon=&icon_color=%23FF0202&title=hits&edge_flat=false)](https://hits.seeyoufarm.com)
 
-나만의 포트폴리오 만드는 서비스
+나만의 포트폴리오를 만들고 다른 사람들과 공유할 수 있는 서비스
 
 ## 💁🏻‍♀️ 소개
 
@@ -48,7 +48,7 @@
 
 **이미지 업로드**
 
-- 이미지를 사용 목적에 따라 폴더를 나누기 위해 이미지 업로드 시 이미지의 타입(thumbnail, asset)을 받아와 해당 타입의 폴더 안에 저장했습니다.
+- 이미지를 사용 목적에 따라 폴더를 나누어 이미지 업로드 시 이미지의 타입(thumbnail, asset)을 받아와 해당 타입의 폴더 안에 저장했습니다.
 - 이미지는 multer를 사용하여 서버의 uploads 폴더에 저장되며 이후에는 Cloudinary를 통해 업로드됩니다. 이미지 최적화를 위해 넓이 1000px로 크롭하여 저장했습니다. 업로드 후에는 서버에서 업로드 된 이미지 파일을 삭제했습니다.
 - 프론트엔드 개발 환경에서는 HTTP를 사용하고 배포된 환경에서 HTTPS를 사용하기 때문에 이미지를 상대 경로로 저장했습니다.
 
