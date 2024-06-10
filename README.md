@@ -36,6 +36,8 @@
 
 **로그인/인증**
 
+![인증로직](https://github.com/y-solb/foliohub-backend/assets/59462108/832e2529-25ef-4ba7-afc2-1a10fcea0bad)
+
 - Google 소셜 로그인을 구현하였습니다.
 - 사용자가 로그인하면 Google로부터 받은 정보를 확인하고, 기존 회원인 경우 accessToken과 refreshToken을 쿠키를 통해 발급합니다. 또한, AuthToken 테이블에 userId, refreshToken, 만료일을 저장하여 accessToken 재발급 시 이를 활용합니다.
 - 보안을 강화하기 위해 쿠키는 httpOnly, secure, sameSite 옵션을 설정했습니다.
@@ -69,7 +71,6 @@
 
 - Docker를 활용하여 AWS EC2에 PM2로 무중단 배포를 구현했습니다.
 - AWS Certificate Manager를 사용하여 SSL 인증서를 발급받고, 이를 Route 53을 통해 설정한 Load Balancer에 연결하여 HTTPS를 구현했습니다.
-- AWS EC2에서 빌드 시 인스턴스가 중단되는 문제가 발생하여, 현재 로컬에서 프로젝트를 빌드 후 Git에 업로드하고 이를 EC2에서 실행시키고 있습니다.
 
 ## ⛳️ 실행
 
