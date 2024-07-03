@@ -18,8 +18,8 @@ export class LikePortfolio {
   @Column({ default: true })
   status!: boolean;
 
-  @Column('uuid')
-  userId!: string;
+  @Column('uuid', { nullable: true })
+  userId!: string | null;
 
   @Column('uuid')
   portfolioId!: string;
