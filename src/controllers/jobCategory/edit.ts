@@ -5,7 +5,7 @@ import { Portfolio } from '../../entities/Portfolio';
 
 /**
  * 직업 카테고리 수정
- * PUT /v1/job-category
+ * PUT /v1/user/job-category
  */
 export const editJobCategory = async (req: Request, res: Response, next: NextFunction) => {
   if (!req.user) {
