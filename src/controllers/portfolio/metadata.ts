@@ -7,11 +7,11 @@ import { prependCloudinaryBaseUrl } from '../../libs/utils';
 
 /**
  * 포트폴리오 metadata
- * GET /v1/portfolio/metadata
+ * GET /v1/portfolio/metadata/:username
  */
 export const metadataPortfolio = async (req: Request, res: Response, next: NextFunction) => {
-  const { username } = req.query;
-
+  const { username } = req.params;
+  console.log('hihi', username);
   if (typeof username !== 'string')
     return next(new CustomError(400, 'Validation', 'username이 string 타입이 아닙니다.'));
 

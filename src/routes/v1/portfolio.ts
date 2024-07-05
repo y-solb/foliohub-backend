@@ -11,9 +11,9 @@ const router = Router();
 
 router.get('/list', listPortFolio);
 
-router.get('/metadata', metadataPortfolio);
 router.get('/:username', userMiddleware, getPortFolio);
 router.put('/:username', userMiddleware, editPortFolio);
+router.get('/metadata/:username', metadataPortfolio);
 
 router.get('/like/list', userMiddleware, listLike);
 router.post('/like/:portfolioId', userMiddleware, likePortfolio);
