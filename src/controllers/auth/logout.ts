@@ -21,7 +21,11 @@ export const logout = async (req: Request, res: Response, next: NextFunction) =>
 
     res.clearCookie('accessToken', { domain: process.env.COOKIE_DOMAIN, path: '/' });
     res.clearCookie('refreshToken', { domain: process.env.COOKIE_DOMAIN, path: '/' });
-    res.json({ message: '로그아웃 처리 되었습니다.' });
+
+    return res.json({
+      success: true,
+      message: '로그아웃 처리 되었습니다.',
+    });
   } catch (error) {
     return next(new CustomError(400, 'Raw', 'Error', null, error));
   }

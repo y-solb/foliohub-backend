@@ -57,7 +57,11 @@ export const register = async (req: Request, res: Response, next: NextFunction) 
 
     const token = await user.generateUserToken();
     setTokenCookie(res, token);
-    res.json('success');
+
+    return res.json({
+      success: true,
+      message: '회원가입이 완료되었습니다.',
+    });
   } catch (error) {
     return next(new CustomError(400, 'Raw', 'Error', null, error));
   }

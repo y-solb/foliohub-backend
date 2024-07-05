@@ -28,6 +28,7 @@ export const loginExperience = async (req: Request, res: Response, next: NextFun
 
     const token = await user.generateUserToken();
     setTokenCookie(res, token);
+
     return res.json({
       success: true,
       message: '체험 로그인이 완료되었습니다!',

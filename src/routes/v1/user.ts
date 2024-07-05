@@ -2,7 +2,7 @@ import { Router } from 'express';
 import userMiddleware from '../../middlewares/user';
 import { my } from '../../controllers/user/my';
 import { deleteAccount } from '../../controllers/user/account';
-import { editJobCategory } from '../../controllers/jobCategory/edit';
+import { editJobCategory } from '../../controllers/user/edit';
 
 const router = Router();
 

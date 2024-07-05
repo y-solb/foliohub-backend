@@ -42,7 +42,11 @@ export const refresh = async (req: Request, res: Response, next: NextFunction) =
     );
 
     setAccessTokenCookie(res, accessToken);
-    return res.json({ message: 'accessToken이 재발급되었습니다.' });
+
+    return res.json({
+      success: true,
+      message: 'accessToken이 재발급되었습니다.',
+    });
   } catch (error) {
     return next(new CustomError(400, 'Raw', 'Error', null, error));
   }
