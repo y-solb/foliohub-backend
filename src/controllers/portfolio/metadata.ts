@@ -11,7 +11,7 @@ import { prependCloudinaryBaseUrl } from '../../libs/utils';
  */
 export const metadataPortfolio = async (req: Request, res: Response, next: NextFunction) => {
   const { username } = req.params;
-  console.log('hihi', username);
+
   if (typeof username !== 'string')
     return next(new CustomError(400, 'Validation', 'username이 string 타입이 아닙니다.'));
 
