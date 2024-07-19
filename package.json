@@ -5,7 +5,6 @@
   "scripts": {
     "dev": "env-cmd -f .env.development nodemon --exec ts-node ./src/index.ts",
     "start:production": "env-cmd -f .env.production node ./dist/index.js",
-    "start:prod": "env-cmd -f .env.production ts-node ./src/index.ts",
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "rm -rf dist && node --max-old-space-size=4096 node_modules/.bin/tsc",
     "typeorm": "typeorm-ts-node-commonjs"
