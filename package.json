@@ -8,7 +8,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "rm -rf dist && node --max-old-space-size=4096 node_modules/.bin/tsc",
     "docker:dev": "docker-compose --env-file .env.development up --build",
-    "docker:prod": "docker-compose --env-file .env.production up --build",
+    "docker:prod": "docker-compose --env-file .env.production up --build -d",
     "typeorm": "typeorm-ts-node-commonjs"
   },
   "keywords": [],
