@@ -3,10 +3,12 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "dev": "env-cmd -f .env.development nodemon --exec ts-node ./src/index.ts",
-    "start:production": "env-cmd -f .env.production node ./dist/index.js",
+    "dev": "env-cmd -f .env.development nodemon --watch ./src --exec ts-node ./src/index.ts",
+    "start": "env-cmd -f .env.production node ./dist/index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "rm -rf dist && node --max-old-space-size=4096 node_modules/.bin/tsc",
+    "docker:dev": "docker-compose --env-file .env.development up --build",
+    "docker:prod": "docker-compose --env-file .env.production up --build",
     "typeorm": "typeorm-ts-node-commonjs"
   },
   "keywords": [],
